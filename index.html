@@ -1151,37 +1151,31 @@ body { padding-bottom: 4.25rem; }
 
     <div class="tarjeta" id="identificacion">
       <p><strong>Datos completos de identificación</strong></p>
-      <p class="tenue">Nombre, NIF y domicilio a efectos de notificaciones. Están disponibles
-         aquí mismo; se muestran al pulsar para que no queden expuestos a la recogida
-         automática de datos.</p>
-      <p><button class="boton" type="button" id="ver-identificacion">Mostrar los datos</button></p>
-      <ul class="lista" id="datos-identificacion" hidden>
-        <li>Titular: <span class="pendiente">TITULAR pendiente</span></li>
-        <li>NIF: <span class="pendiente">NIF pendiente</span></li>
-        <li>Domicilio a efectos de notificaciones: <span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
-      </ul>
+      <p class="tenue" id="ident-aviso">Nombre, NIF y domicilio a efectos de notificaciones se
+         facilitan a quien entra en contacto con el servicio. Escríbanos por
+         <a href="#contacto">el formulario</a>, por WhatsApp o por correo y los tiene al
+         instante; si ya lo ha hecho, aparecen aquí.</p>
+      <ul class="lista" id="datos-identificacion" hidden></ul>
     </div>
-    <p class="tenue">Datos facilitados en cumplimiento del art. 10 de la Ley 34/2002, de
-       servicios de la sociedad de la información y de comercio electrónico.</p>
 
 <script>
+/* Los datos no estan en el HTML de carga: llegan codificados y se pintan solo si
+   esta persona ya ha usado el formulario de contacto. No es un mecanismo de
+   seguridad, es que no queden expuestos a la recogida automatica. */
 (function () {
-  var boton = document.getElementById("ver-identificacion");
-  var datos = document.getElementById("datos-identificacion");
-  if (!boton || !datos) { return; }
-  boton.addEventListener("click", function () {
-    datos.hidden = false;
-    boton.parentNode.removeChild(boton);
-  });
+  var contacto = null;
+  try { contacto = localStorage.getItem("contacto-iniciado"); } catch (e) {}
+  if (contacto !== "1") { return; }
+  var lista = document.getElementById("datos-identificacion");
+  var aviso = document.getElementById("ident-aviso");
+  if (!lista) { return; }
+  try {
+    lista.innerHTML = decodeURIComponent(escape(window.atob("PGxpPlRpdHVsYXI6IHt7VElUVUxBUn19PC9saT48bGk+TklGOiB7e05JRn19PC9saT48bGk+RG9taWNpbGlvIGEgZWZlY3RvcyBkZSBub3RpZmljYWNpb25lczoge3tESVJFQ0NJT05fRklTQ0FMfX08L2xpPg==")));
+    lista.hidden = false;
+    if (aviso) { aviso.parentNode.removeChild(aviso); }
+  } catch (e) {}
 })();
 </script>
-<noscript>
-  <ul class="lista">
-    <li>Titular: <span class="pendiente">TITULAR pendiente</span></li>
-    <li>NIF: <span class="pendiente">NIF pendiente</span></li>
-    <li>Domicilio a efectos de notificaciones: <span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
-  </ul>
-</noscript>
 
     <h2>2. Condición profesional del titular</h2>
     <p>El prestador del servicio es titulado en Derecho y ejerce como jurista independiente por
@@ -1217,7 +1211,7 @@ body { padding-bottom: 4.25rem; }
        jurídico para un caso concreto. La normativa de extranjería cambia y su aplicación
        depende de las circunstancias de cada persona. Ninguna decisión debería tomarse solo con
        lo que se lee aquí.</p>
-    <p>Los textos, la estructura y el diseño de este sitio son titularidad de <span class="pendiente">TITULAR pendiente</span>.</p>
+    <p>Los textos, la estructura y el diseño de este sitio son titularidad de <span class="pendiente">MARCA pendiente</span>.</p>
 
     <h2>7. Legislación aplicable</h2>
     <p>Este aviso legal se rige por la legislación española. Para cualquier controversia serán
@@ -1584,6 +1578,8 @@ body { padding-bottom: 4.25rem; }
       document.getElementById("consentimiento").focus();
       return;
     }
+
+    try { localStorage.setItem("contacto-iniciado", "1"); } catch (e) {}
 
     var mensaje = componer();
     var via = document.querySelector('input[name="via"]:checked');
@@ -2333,24 +2329,24 @@ body { padding-bottom: 4.25rem; }
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
     <h1>¿Le caduca la autorización de la regularización de 2026?</h1>
-    <p class="entradilla">Si consiguió la autorización extraordinaria en 2026, le vence al año. Bien planteada, la siguiente no es de un año: puede ser de cuatro.</p>
+    <p class="entradilla">Si consiguió la autorización extraordinaria en 2026, le vence al año. Bien planteada, la siguiente puede ser de cuatro años en lugar de uno.</p>
 
     <div class="dos-columnas">
       <div class="columna-principal">
 
         <h2>Qué es y a quién sirve</h2>
-    <p>La regularización extraordinaria de 2026 concedió autorizaciones de un año que habilitan a residir y a trabajar, por cuenta ajena y por cuenta propia, en cualquier ocupación. Las primeras empiezan a caducar en la primavera de 2027.</p>
-    <p>En los <strong>dos meses previos</strong> a que expire hay que solicitar la modificación. Y aquí está lo que casi nadie mira: el resultado no es siempre el mismo. Si en el momento de solicitarla usted acredita al menos un año en situación de residencia y su autorización ya le habilitaba a trabajar —que es el caso—, la nueva autorización puede tener una <strong>vigencia de cuatro años</strong> en lugar de uno.</p>
-    <p>Presentar unos días antes o unos días después de esa frontera cambia por completo lo que usted recibe. Esa es la parte del trabajo que se paga aquí: no rellenar un formulario, sino elegir el día.</p>
-    <p>Si en ese momento no reúne las condiciones para modificar, la norma prevé una salida: la autorización puede prorrogarse acreditando búsqueda activa de empleo con inscripción en el servicio público, o con un informe de esfuerzo de integración de su comunidad autónoma.</p>
+    <p>La regularización extraordinaria de 2026 se resolvió por dos vías: la <strong>disposición adicional vigésima</strong>, para quienes habían solicitado protección internacional antes del 1 de enero de 2026, y la <strong>vigesimoprimera</strong>, la vía general. Las dos conceden una autorización de un año que habilita a residir y a trabajar, por cuenta ajena y por cuenta propia, en cualquier ocupación.</p>
+    <p>Hay un detalle que casi nadie mira y que le conviene saber: <strong>la autorización cuenta desde el día en que usted presentó la solicitud</strong>, no desde el día en que se la concedieron. Entre una fecha y otra suele haber meses.</p>
+    <p>En los <strong>dos meses previos</strong> a que expire hay que solicitar la modificación. Y el resultado no es siempre el mismo: como su autorización ya le habilitaba a trabajar y acredita un año de residencia continuada, la modificación puede acogerse a los requisitos de renovación en lugar de a los de una autorización inicial, y eso abre una <strong>vigencia de cuatro años</strong>.</p>
+    <p>Si en ese momento no reúne las condiciones para modificar, la norma prevé una salida: la autorización puede prorrogarse acreditando búsqueda activa de empleo con inscripción en el servicio público de empleo, o con un informe de esfuerzo de integración de su comunidad autónoma que la recomiende.</p>
 
         <h2>Requisitos</h2>
         <ul class="lista">
-      <li>Ser titular de una autorización concedida al amparo de la regularización extraordinaria de 2026.</li>
-      <li>Presentar la solicitud dentro de los dos meses anteriores a la fecha de caducidad. La presentación prorroga la validez de la anterior hasta que se resuelva.</li>
-      <li>Para la modificación por cuenta ajena o por cuenta propia: cumplir los requisitos de la autorización a la que se pasa. Si acredita un año en situación de residencia, se aplican los requisitos de renovación, más llevaderos que los iniciales.</li>
-      <li>Para la prórroga excepcional: acreditar búsqueda activa de empleo con inscripción en el servicio público de empleo, o aportar informe de esfuerzo de integración de su comunidad autónoma que recomiende la prórroga.</li>
-      <li>La autorización de 2026 ya habilitaba a trabajar, así que la modificación puede acogerse a los requisitos de renovación en lugar de a los de una autorización inicial. Es lo que abre la vigencia de cuatro años.</li>
+      <li>Ser titular de una autorización concedida en la regularización extraordinaria de 2026, por cualquiera de sus dos vías.</li>
+      <li>Presentar la solicitud dentro de los dos meses anteriores a la fecha de caducidad. La presentación prorroga la validez de la autorización anterior hasta que se resuelva.</li>
+      <li>Acreditar un año de residencia continuada. Se cuenta desde la fecha de efectos de su autorización, que es la de su solicitud.</li>
+      <li>Para la modificación: cumplir los requisitos de la autorización a la que se pasa, por cuenta ajena o por cuenta propia.</li>
+      <li>Para la prórroga excepcional: acreditar búsqueda activa de empleo con inscripción en el servicio público de empleo, o aportar informe de esfuerzo de integración de su comunidad autónoma que la recomiende.</li>
         </ul>
 
         <h2>Documentación necesaria</h2>
@@ -2388,7 +2384,7 @@ body { padding-bottom: 4.25rem; }
     </details>
     <details>
       <summary>¿Es verdad que puedo conseguir cuatro años?</summary>
-      <p>Puede. La norma prevé una vigencia de cuatro años cuando quien solicita la modificación acredita al menos un año en situación de residencia y su autorización anterior ya habilitaba a trabajar. La de la regularización de 2026 habilita. Lo que hay que mirar con calma es la fecha: su ventana de presentación y ese año no siempre coinciden, y de ahí sale la diferencia entre una tarjeta de un año y una de cuatro. Es lo primero que calculamos.</p>
+      <p>Puede. La norma prevé una vigencia de cuatro años cuando quien solicita la modificación acredita un año de residencia continuada y su autorización anterior ya habilitaba a trabajar. La de 2026 habilita, y el año se cuenta desde la fecha de efectos, que es la de su solicitud, no la de la concesión. Es lo primero que calculamos en su caso.</p>
     </details>
     <details>
       <summary>¿Qué diferencia hay entre modificar y prorrogar?</summary>
@@ -2396,7 +2392,7 @@ body { padding-bottom: 4.25rem; }
     </details>
     <details>
       <summary>Se me ha pasado el plazo. ¿Puedo hacer algo?</summary>
-      <p>Depende de cuánto haya pasado y de su situación concreta. Escríbanos y lo miramos.</p>
+      <p>Escríbanos y lo miramos. Lo importante es que, si todavía está en plazo, se presenta siempre antes de la caducidad: presentar dentro de la ventana prorroga la validez de su autorización hasta que se resuelva.</p>
     </details>
     <details>
       <summary>¿Me representa ante los tribunales si me deniegan?</summary>
