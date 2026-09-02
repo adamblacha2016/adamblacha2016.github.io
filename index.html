@@ -141,6 +141,30 @@ h3 { font-family: var(--texto); font-weight: 600; font-size: 1rem; margin: 1.5re
 p { margin: 0 0 1rem; }
 
 .entradilla { font-size: 1.12rem; color: var(--tinta-tenue); margin: 0 0 1.5rem; }
+
+/* Antetitulo: dice de que familia es el tramite antes de que el lector lea el
+   titular. Orienta sin ocupar sitio. */
+.antetitulo {
+  font-family: var(--texto); font-weight: 600; font-size: 0.72rem;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--tinta-tenue); margin: 0 0 0.5rem;
+}
+
+/* Cita destacada. Donde un despacho grande pone un premio o un ranking, aqui va
+   un dato de la norma que el cliente no conoce. Es la misma funcion: demostrar
+   que se sabe de esto, con lo unico que tenemos para demostrarlo. */
+.destacado {
+  border-top: 2px solid var(--tinta); border-bottom: 1px solid var(--linea);
+  padding: 1.25rem 0; margin: 2rem 0;
+}
+.destacado p {
+  font-family: var(--display); font-weight: var(--peso-titular);
+  font-size: 1.35rem; line-height: 1.3; margin: 0 0 0.5rem;
+}
+.destacado .fuente {
+  font-family: var(--texto); font-size: 0.78rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--tinta-tenue); margin: 0;
+}
 .tenue { color: var(--tinta-tenue); font-size: 0.9rem; }
 
 a { color: var(--acento); text-decoration: underline; text-underline-offset: 2px; }
@@ -295,6 +319,7 @@ td.cifra {
 .ficha-precio .tenue { display: block; margin-top: 1rem; font-size: 0.82rem; }
 
 .contacto-cabecera { display: none; }
+.boton-cabecera { padding: 0.5rem 1.25rem; font-size: 0.9rem; }
 
 /* --- Contacto permanente ------------------------------------------------------- */
 
@@ -342,8 +367,8 @@ body { padding-bottom: 4.25rem; }
   header.sitio .envoltura { justify-content: space-between; align-items: flex-start; }
   header.sitio { padding: 1.5rem 0; }
   .marca { font-size: 1.6rem; }
-  .contacto-cabecera { display: block; margin: 0; text-align: right; font-size: 0.9rem; }
-  .contacto-cabecera .tenue { font-size: 0.8rem; }
+  .contacto-cabecera { display: flex; align-items: center; gap: 1rem; }
+  .contacto-cabecera p { margin: 0; font-size: 0.82rem; }
 
   .dos-columnas {
     display: grid;
@@ -420,10 +445,10 @@ body { padding-bottom: 4.25rem; }
 <header class="sitio">
   <div class="envoltura">
     <a class="marca" href="#inicio"><span class="pendiente">MARCA pendiente</span><span>Asesoría jurídica · Extranjería · Gipuzkoa</span></a>
-    <p class="contacto-cabecera">
-      <a href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">WhatsApp <span class="pendiente">WHATSAPP_VISIBLE pendiente</span></a><br>
-      <span class="tenue">Donostia-San Sebastián</span>
-    </p>
+    <div class="contacto-cabecera">
+      <p class="tenue"><span class="pendiente">WHATSAPP_VISIBLE pendiente</span> · Donostia-San Sebastián</p>
+      <a class="boton principal boton-cabecera" href="#contacto">Contacto</a>
+    </div>
   </div>
 </header>
 
@@ -453,8 +478,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Trámites</h2>
         <div class="rejilla-tramites">
     <ul class="lista">
-      <li><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a> — 345 €. Si consiguió la autorización extraordinaria en 2026, le vence al año.</li>
-      <li><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a> — 350 €. Si tuvo papeles en los últimos dos años y los perdió porque no pudo renovar, esta figura se creó para usted.</li>
+      <li><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a> — 420 €. Si consiguió la autorización extraordinaria en 2026, le vence al año.</li>
+      <li><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a> — 425 €. Si tuvo papeles en los últimos dos años y los perdió porque no pudo renovar, esta figura se creó para usted.</li>
     </ul>
     <p>Cubrimos además el resto de figuras de arraigo, familiar de español y reagrupación familiar, residencia y trabajo, estudios, renovaciones, TIE y NIE, recursos tras una denegación y nacionalidad por residencia. <a href="#tramites">Ver todos los trámites</a>.</p>
         </div>
@@ -508,6 +533,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Arraigo</p>
     <h1>Arraigo familiar en Donostia-San Sebastián</h1>
     <p class="entradilla">La única figura de arraigo que no exige llevar dos años en España. Y la única que se concede por cinco años, no por uno.</p>
 
@@ -518,6 +544,8 @@ body { padding-bottom: 4.25rem; }
     <p>El arraigo familiar es distinto a los demás en dos cosas que importan mucho: no exige permanencia mínima previa en España, y la autorización se concede por cinco años en lugar de por uno.</p>
     <p>Cubre dos supuestos. El primero: ser padre, madre o tutor de un menor que sea nacional de un país de la Unión Europea, del Espacio Económico Europeo o de Suiza, teniéndolo a su cargo y conviviendo con él, o estando al corriente de sus obligaciones paternofiliales.</p>
     <p>El segundo: prestar apoyo a una persona con discapacidad nacional de esos mismos países para el ejercicio de su capacidad jurídica, siendo familiar suyo, teniéndola a su cargo y conviviendo con ella.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -594,7 +622,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>395 €</strong>
+            <strong>480 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -620,6 +648,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Arraigo</p>
     <h1>Arraigo de segunda oportunidad en Donostia-San Sebastián</h1>
     <p class="entradilla">Si tuvo papeles en los últimos dos años y los perdió porque no pudo renovar, esta figura se creó para usted. Preparamos y presentamos el expediente completo, con precio cerrado desde el primer día.</p>
 
@@ -630,6 +659,11 @@ body { padding-bottom: 4.25rem; }
     <p>El arraigo de segunda oportunidad es una figura nueva del reglamento de extranjería vigente. Está pensada para una situación concreta: usted tuvo una autorización de residencia, no pudo renovarla, y quedó en situación irregular.</p>
     <p>Hay un detalle que decide la mayoría de los casos y que conviene mirar antes que nada: la autorización que usted tuvo <strong>no puede haber sido de las concedidas por circunstancias excepcionales</strong>. Si su tarjeta anterior fue un arraigo, esta vía no le sirve.</p>
     <p>Tampoco cubre a quien lleva muchos años sin documentación: la norma mira hacia atrás dos años y no más. Es, eso sí, la figura más limpia de preparar, porque usted ya tuvo un expediente y esa huella administrativa juega a su favor.</p>
+
+        <div class="destacado">
+          <p>Si su tarjeta anterior fue un arraigo, esta vía no le sirve. Es el filtro que más casos descarta y casi nadie lo comprueba antes de cobrar.</p>
+          <p class="fuente">Reglamento de extranjería, requisitos específicos del arraigo de segunda oportunidad</p>
+        </div>
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -706,7 +740,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>350 €</strong>
+            <strong>425 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -732,6 +766,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Arraigo</p>
     <h1>Arraigo social en Donostia-San Sebastián</h1>
     <p class="entradilla">Dos años en España y familia directa aquí con papeles. Si no tiene ese vínculo familiar, se sustituye por el informe de integración de su comunidad autónoma.</p>
 
@@ -742,6 +777,8 @@ body { padding-bottom: 4.25rem; }
     <p>El arraigo social es la vía clásica, y el reglamento vigente la rebajó de tres años a dos de permanencia en España.</p>
     <p>Funciona por dos caminos. El primero: tener cónyuge o pareja registrada, o un familiar en primer grado en línea directa —padres, madres, hijos e hijas—, que sea extranjero y tenga autorización de residencia en vigor. El segundo, si no tiene ese vínculo: acreditar su esfuerzo de integración mediante un informe favorable de su comunidad autónoma o de su ayuntamiento.</p>
     <p>En ambos casos hay que justificar medios económicos disponibles en España. Pueden proceder de esos mismos familiares, así que no tiene que ganarlos usted. Preparamos esa acreditación siempre, incluso cuando se va por la vía del informe: si la oficina no la pide, no se pierde nada; si la pide, el expediente ya la lleva.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -823,7 +860,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>450 €</strong>
+            <strong>545 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -849,6 +886,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Arraigo</p>
     <h1>Arraigo socioformativo en Donostia-San Sebastián</h1>
     <p class="entradilla">Dos años en España y una formación empezada. Cuidado con las fechas: aquí el plazo de solicitud depende del plazo de matrícula, y es el error más caro de esta figura.</p>
 
@@ -859,6 +897,8 @@ body { padding-bottom: 4.25rem; }
     <p>El arraigo socioformativo permite regularizar la situación mientras se cursa una formación reglada de las que el reglamento admite, incluida la educación de personas adultas en su oferta presencial obligatoria.</p>
     <p>Lo que decide el resultado en esta figura no son los requisitos: son las fechas. Si la matrícula tiene un plazo oficial, la solicitud hay que presentarla en los <strong>dos meses anteriores</strong> a que ese plazo se abra. Y una vez concedida la autorización, hay <strong>tres meses</strong> para acreditar la matrícula. No hacerlo extingue la autorización que ya le habían dado.</p>
     <p>También cabe si se compromete a realizar una formación promovida por los servicios públicos de empleo orientada a ocupaciones del catálogo. Igual que antes: si luego no acredita haberla realizado, la autorización se extingue.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -941,7 +981,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>450 €</strong>
+            <strong>545 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -967,6 +1007,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Arraigo</p>
     <h1>Arraigo sociolaboral en Donostia-San Sebastián</h1>
     <p class="entradilla">Dos años en España y una oferta de trabajo real: al menos veinte horas semanales y el salario mínimo o el del convenio que le corresponda.</p>
 
@@ -977,6 +1018,8 @@ body { padding-bottom: 4.25rem; }
     <p>El arraigo sociolaboral cambia el informe de integración por algo más tangible: un contrato de trabajo. Si tiene quien le contrate, esta suele ser la vía más rápida y la más previsible.</p>
     <p>El contrato debe garantizarle al menos el salario mínimo interprofesional, o el del convenio colectivo que se le aplique si es superior, en proporción a la jornada. Y la jornada tiene un suelo: veinte horas semanales en cómputo global.</p>
     <p>No hace falta que sea un único contrato. Si su trabajo es de temporada, se pueden presentar dos o más contratos encadenados con distintos empleadores. Y si trabaja a tiempo parcial para varios a la vez, se admiten varios contratos que sumen esas veinte horas.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1058,7 +1101,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>395 €</strong>
+            <strong>480 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1084,6 +1127,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Autorización de regreso en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de autorización de regreso]</span></p>
 
@@ -1093,6 +1137,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es autorización de regreso y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de autorización de regreso conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1136,7 +1182,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>100 €</strong>
+            <strong>125 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1155,6 +1201,9 @@ body { padding-bottom: 4.25rem; }
   <div class="envoltura">
     <span class="chip-borrador">Borrador · sin verificar</span>
     <h1>Aviso legal</h1>
+
+    <p class="entradilla">El acceso y la utilización de este sitio implican la aceptación de
+       las condiciones que siguen. Si no está de acuerdo con ellas, no lo utilice.</p>
 
     <h2>1. Identificación del titular</h2>
     <ul class="lista">
@@ -1215,19 +1264,38 @@ body { padding-bottom: 4.25rem; }
        1902 del Código Civil. No garantiza en ningún caso un resultado favorable: la resolución
        de un expediente corresponde a la Administración competente.</p>
 
-    <h2>7. Contenido del sitio</h2>
+    <h2>7. Objeto y modificación de estas condiciones</h2>
+    <p>Estas condiciones regulan el acceso y la utilización del sitio. El titular puede
+       modificar su presentación, su configuración y su contenido, así como estas mismas
+       condiciones, publicando los cambios en esta página. El uso del sitio después de una
+       modificación supone su aceptación.</p>
+
+    <h2>8. Propiedad intelectual e industrial</h2>
+    <p>Los textos, la estructura, el diseño, el código y el resto de contenidos de este sitio
+       son titularidad de <span class="pendiente">MARCA pendiente</span> o se utilizan con la licencia correspondiente. Su
+       reproducción, distribución o transformación sin autorización expresa no está permitida.</p>
+    <p>Queda a salvo la cita de fragmentos con fines informativos, siempre que se indique la
+       fuente y el enlace al sitio.</p>
+
+    <h2>9. Enlaces</h2>
+    <p>Este sitio no incorpora enlaces a sitios de terceros salvo los estrictamente necesarios
+       para remitir a la información oficial de la Administración. El titular no responde del
+       contenido de sitios ajenos ni del uso que sus responsables hagan de los datos de quien
+       los visite.</p>
+
+    <h2>10. Contenido del sitio</h2>
     <p>La información publicada en este sitio es divulgativa y no constituye asesoramiento
        jurídico para un caso concreto. La normativa de extranjería cambia y su aplicación
        depende de las circunstancias de cada persona. Ninguna decisión debería tomarse solo con
        lo que se lee aquí.</p>
     <p>Los textos, la estructura y el diseño de este sitio son titularidad de <span class="pendiente">MARCA pendiente</span>.</p>
 
-    <h2>8. Legislación aplicable</h2>
+    <h2>11. Legislación aplicable</h2>
     <p>Este aviso legal se rige por la legislación española. Para cualquier controversia serán
        competentes los órganos jurisdiccionales que determine la normativa aplicable en materia
        de consumidores y usuarios.</p>
 
-    <p class="tenue">Última actualización: 2026-09-02</p>
+    <p class="tenue">Última actualización: 2026-09-03</p>
 
   </div>
 </section>
@@ -1242,6 +1310,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Carta de invitación en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de carta de invitación]</span></p>
 
@@ -1251,6 +1320,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es carta de invitación y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de carta de invitación conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1294,7 +1365,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>90 €</strong>
+            <strong>110 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1320,6 +1391,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Certificado de registro de ciudadano de la UE en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de certificado de registro de ciudadano de la ue]</span></p>
 
@@ -1329,6 +1401,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es certificado de registro de ciudadano de la ue y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de certificado de registro de ciudadano de la ue conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1372,7 +1446,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>100 €</strong>
+            <strong>125 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1639,7 +1713,7 @@ body { padding-bottom: 4.25rem; }
        antes un aviso de consentimiento previo, y esta página se actualizaría antes de
        activarla.</p>
 
-    <p class="tenue">Última actualización: 2026-09-02</p>
+    <p class="tenue">Última actualización: 2026-09-03</p>
 
   </div>
 </section>
@@ -1654,6 +1728,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Estudios</p>
     <h1>Estancia por estudios en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de estancia por estudios]</span></p>
 
@@ -1663,6 +1738,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es estancia por estudios y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de estancia por estudios conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1706,7 +1783,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>350 €</strong>
+            <strong>425 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1732,6 +1809,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Familia</p>
     <h1>Familiar de español en Donostia-San Sebastián</h1>
     <p class="entradilla">Si es familiar de una persona española o de la Unión Europea, su vía no es el arraigo ni la reagrupación: es el régimen comunitario, que es distinto y más favorable.</p>
 
@@ -1742,6 +1820,8 @@ body { padding-bottom: 4.25rem; }
     <p>Ser familiar de una persona española o de otro país de la Unión Europea no le lleva por el mismo camino que al resto. Se aplica el régimen comunitario, que es una norma distinta y en general bastante más favorable: no exige arraigo, no exige tiempo previo en España y la tarjeta se llama <strong>tarjeta de residencia de familiar de ciudadano de la Unión</strong>.</p>
     <p>La confusión más cara de esta materia es entrar por la puerta equivocada. Mucha gente presenta un arraigo cuando le correspondía el régimen comunitario, o al revés. Lo primero que hacemos es comprobar cuál es su puerta.</p>
     <p>El régimen alcanza al cónyuge, a la pareja registrada, a los descendientes directos menores de 21 años —o mayores que vivan a su cargo— y a los ascendientes directos que vivan a su cargo, tanto suyos como de su cónyuge o pareja.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1814,7 +1894,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>350 €</strong>
+            <strong>425 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1840,6 +1920,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Residencia y trabajo</p>
     <h1>Modificación de la autorización en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de modificación de la autorización]</span></p>
 
@@ -1849,6 +1930,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es modificación de la autorización y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de modificación de la autorización conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1892,7 +1975,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>395 €</strong>
+            <strong>480 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1918,6 +2001,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Nacionalidad</p>
     <h1>Nacionalidad española por residencia en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de nacionalidad española por residencia]</span></p>
 
@@ -1927,6 +2011,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es nacionalidad española por residencia y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de nacionalidad española por residencia conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -1970,7 +2056,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>550 €</strong>
+            <strong>670 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -1996,6 +2082,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Número de identidad de extranjero (NIE) en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de número de identidad de extranjero (nie)]</span></p>
 
@@ -2005,6 +2092,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es número de identidad de extranjero (nie) y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de número de identidad de extranjero (nie) conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2048,7 +2137,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>100 €</strong>
+            <strong>125 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2079,46 +2168,46 @@ body { padding-bottom: 4.25rem; }
         </thead>
         <tbody>
           <tr><th colspan="3" scope="rowgroup">Consulta</th></tr>
-          <tr><td>Consulta y cita previa</td><td class="cifra">45 €</td><td>Cita en 48 h</td></tr>
+          <tr><td>Consulta y cita previa</td><td class="cifra">55 €</td><td>Cita en 48 h</td></tr>
           <tr><th colspan="3" scope="rowgroup">Tras la regularización de 2026</th></tr>
-          <tr><td><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a></td><td class="cifra">345 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#prorroga-regularizacion-2026">Prórroga o modificación de la regularización de 2026</a></td><td class="cifra">420 €</td><td>15 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Arraigo</th></tr>
-          <tr><td><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a></td><td class="cifra">350 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#arraigo-social">Arraigo social</a></td><td class="cifra">450 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#arraigo-sociolaboral">Arraigo sociolaboral</a></td><td class="cifra">395 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#arraigo-socioformativo">Arraigo socioformativo</a></td><td class="cifra">450 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#arraigo-familiar">Arraigo familiar</a></td><td class="cifra">395 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#arraigo-segunda-oportunidad">Arraigo de segunda oportunidad</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#arraigo-social">Arraigo social</a></td><td class="cifra">545 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#arraigo-sociolaboral">Arraigo sociolaboral</a></td><td class="cifra">480 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#arraigo-socioformativo">Arraigo socioformativo</a></td><td class="cifra">545 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#arraigo-familiar">Arraigo familiar</a></td><td class="cifra">480 €</td><td>15 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Familia</th></tr>
-          <tr><td><a href="#familiar-de-espanol">Familiar de español</a></td><td class="cifra">350 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#tarjeta-familiar-ciudadano-ue">Tarjeta de familiar de ciudadano de la UE</a></td><td class="cifra">350 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#reagrupacion-familiar">Reagrupación familiar</a></td><td class="cifra">495 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#reagrupacion-ascendientes">Reagrupación de ascendientes</a></td><td class="cifra">550 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#familiar-de-espanol">Familiar de español</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#tarjeta-familiar-ciudadano-ue">Tarjeta de familiar de ciudadano de la UE</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#reagrupacion-familiar">Reagrupación familiar</a></td><td class="cifra">600 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#reagrupacion-ascendientes">Reagrupación de ascendientes</a></td><td class="cifra">670 €</td><td>15 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Residencia y trabajo</th></tr>
-          <tr><td><a href="#residencia-trabajo-cuenta-ajena">Residencia y trabajo por cuenta ajena</a></td><td class="cifra">450 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#residencia-trabajo-cuenta-propia">Residencia y trabajo por cuenta propia</a></td><td class="cifra">495 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#modificacion-autorizacion">Modificación de la autorización</a></td><td class="cifra">395 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#residencia-larga-duracion">Residencia de larga duración</a></td><td class="cifra">350 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#residencia-larga-duracion-ue">Residencia de larga duración-UE</a></td><td class="cifra">395 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#residencia-trabajo-cuenta-ajena">Residencia y trabajo por cuenta ajena</a></td><td class="cifra">545 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#residencia-trabajo-cuenta-propia">Residencia y trabajo por cuenta propia</a></td><td class="cifra">600 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#modificacion-autorizacion">Modificación de la autorización</a></td><td class="cifra">480 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#residencia-larga-duracion">Residencia de larga duración</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#residencia-larga-duracion-ue">Residencia de larga duración-UE</a></td><td class="cifra">480 €</td><td>15 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Estudios</th></tr>
-          <tr><td><a href="#estancia-por-estudios">Estancia por estudios</a></td><td class="cifra">350 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#prorroga-estancia-estudios">Prórroga de la estancia por estudios</a></td><td class="cifra">150 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#estancia-por-estudios">Estancia por estudios</a></td><td class="cifra">425 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#prorroga-estancia-estudios">Prórroga de la estancia por estudios</a></td><td class="cifra">185 €</td><td>5 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Renovaciones y documentación</th></tr>
-          <tr><td><a href="#renovacion-de-autorizaciones">Renovación de autorizaciones</a></td><td class="cifra">100 €</td><td>5 días hábiles</td></tr>
-          <tr><td><a href="#tarjeta-de-identidad-de-extranjero">Tarjeta de identidad de extranjero (TIE)</a></td><td class="cifra">100 €</td><td>5 días hábiles</td></tr>
-          <tr><td><a href="#numero-de-identidad-de-extranjero">Número de identidad de extranjero (NIE)</a></td><td class="cifra">100 €</td><td>5 días hábiles</td></tr>
-          <tr><td><a href="#autorizacion-de-regreso">Autorización de regreso</a></td><td class="cifra">100 €</td><td>5 días hábiles</td></tr>
-          <tr><td><a href="#carta-de-invitacion">Carta de invitación</a></td><td class="cifra">90 €</td><td>5 días hábiles</td></tr>
-          <tr><td><a href="#certificado-de-registro-ue">Certificado de registro de ciudadano de la UE</a></td><td class="cifra">100 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#renovacion-de-autorizaciones">Renovación de autorizaciones</a></td><td class="cifra">125 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#tarjeta-de-identidad-de-extranjero">Tarjeta de identidad de extranjero (TIE)</a></td><td class="cifra">125 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#numero-de-identidad-de-extranjero">Número de identidad de extranjero (NIE)</a></td><td class="cifra">125 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#autorizacion-de-regreso">Autorización de regreso</a></td><td class="cifra">125 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#carta-de-invitacion">Carta de invitación</a></td><td class="cifra">110 €</td><td>5 días hábiles</td></tr>
+          <tr><td><a href="#certificado-de-registro-ue">Certificado de registro de ciudadano de la UE</a></td><td class="cifra">125 €</td><td>5 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Tras una denegación</th></tr>
-          <tr><td><a href="#recurso-de-reposicion">Recurso de reposición</a></td><td class="cifra">250 €</td><td>15 días hábiles</td></tr>
-          <tr><td><a href="#recurso-de-alzada">Recurso de alzada</a></td><td class="cifra">250 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#recurso-de-reposicion">Recurso de reposición</a></td><td class="cifra">305 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#recurso-de-alzada">Recurso de alzada</a></td><td class="cifra">305 €</td><td>15 días hábiles</td></tr>
           <tr><th colspan="3" scope="rowgroup">Nacionalidad</th></tr>
-          <tr><td><a href="#nacionalidad-por-residencia">Nacionalidad española por residencia</a></td><td class="cifra">550 €</td><td>15 días hábiles</td></tr>
+          <tr><td><a href="#nacionalidad-por-residencia">Nacionalidad española por residencia</a></td><td class="cifra">670 €</td><td>15 días hábiles</td></tr>
         </tbody>
       </table>
     </div>
 
-    <p class="tenue">Una hora para revisar su caso a fondo, presencial en Donostia o a distancia. Si después inicia el trámite, los 45 € se descuentan del precio total.</p>
+    <p class="tenue">Una hora para revisar su caso a fondo, presencial en Donostia o a distancia. Si después inicia el trámite, los 55 € se descuentan del precio total.</p>
 
     <h2>Qué está incluido en el precio</h2>
     <ul class="si-no">
@@ -2244,7 +2333,7 @@ body { padding-bottom: 4.25rem; }
     <p>Este sitio no utiliza cookies de análisis, publicidad ni redes sociales. El detalle está
        en la <a href="#cookies">política de cookies</a>.</p>
 
-    <p class="tenue">Última actualización: 2026-09-02</p>
+    <p class="tenue">Última actualización: 2026-09-03</p>
 
   </div>
 </section>
@@ -2259,6 +2348,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Estudios</p>
     <h1>Prórroga de la estancia por estudios en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de prórroga de la estancia por estudios]</span></p>
 
@@ -2268,6 +2358,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es prórroga de la estancia por estudios y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de prórroga de la estancia por estudios conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2311,7 +2403,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>150 €</strong>
+            <strong>185 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2337,6 +2429,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Tras la regularización de 2026</p>
     <h1>¿Le caduca la autorización de la regularización de 2026?</h1>
     <p class="entradilla">Si consiguió la autorización extraordinaria en 2026, le vence al año. Bien planteada, la siguiente puede ser de cuatro años en lugar de uno.</p>
 
@@ -2348,6 +2441,11 @@ body { padding-bottom: 4.25rem; }
     <p>Hay un detalle que casi nadie mira y que le conviene saber: <strong>la autorización cuenta desde el día en que usted presentó la solicitud</strong>, no desde el día en que se la concedieron. Entre una fecha y otra suele haber meses.</p>
     <p>En los <strong>dos meses previos</strong> a que expire hay que solicitar la modificación. Y el resultado no es siempre el mismo: como su autorización ya le habilitaba a trabajar y acredita un año de residencia continuada, la modificación puede acogerse a los requisitos de renovación en lugar de a los de una autorización inicial, y eso abre una <strong>vigencia de cuatro años</strong>.</p>
     <p>Si en ese momento no reúne las condiciones para modificar, la norma prevé una salida: la autorización puede prorrogarse acreditando búsqueda activa de empleo con inscripción en el servicio público de empleo, o con un informe de esfuerzo de integración de su comunidad autónoma que la recomiende.</p>
+
+        <div class="destacado">
+          <p>Su autorización cuenta desde el día en que presentó la solicitud, no desde el día en que se la concedieron. Entre una fecha y otra suele haber meses, y esos meses cuentan a su favor.</p>
+          <p class="fuente">Fecha de efectos de la resolución de concesión</p>
+        </div>
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2421,7 +2519,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>345 €</strong>
+            <strong>420 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2429,7 +2527,7 @@ body { padding-bottom: 4.25rem; }
             <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
             <a class="boton" href="#contacto">Pedir que le llamemos</a>
           </div>
-          <p class="tenue">Precio cerrado de la modificación. Si su caso no admite modificar y hay que ir por la prórroga excepcional, son <strong>275 €</strong>. Le decimos cuál le corresponde antes de que encargue nada, y si nos escribe con antelación le avisamos cuando se abra su ventana sin coste añadido.</p>
+          <p class="tenue">Precio cerrado de la modificación. Si su caso no admite modificar y hay que ir por la prórroga excepcional, son <strong>335 €</strong>. Le decimos cuál le corresponde antes de que encargue nada, y si nos escribe con antelación le avisamos cuando se abra su ventana sin coste añadido.</p>
         </div>
       </aside>
     </div>
@@ -2447,6 +2545,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Familia</p>
     <h1>Reagrupación de ascendientes en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de reagrupación de ascendientes]</span></p>
 
@@ -2456,6 +2555,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es reagrupación de ascendientes y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de reagrupación de ascendientes conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2499,7 +2600,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>550 €</strong>
+            <strong>670 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2507,7 +2608,7 @@ body { padding-bottom: 4.25rem; }
             <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
             <a class="boton" href="#contacto">Pedir que le llamemos</a>
           </div>
-          <p class="tenue">Precio cerrado para el expediente, más <strong>100 € por cada familiar adicional</strong>. Tasas, traducciones juradas y legalizaciones aparte, y se le indica el importe antes de encargarlas. El plazo es el nuestro de preparación: el de resolución lo marca la Administración.</p>
+          <p class="tenue">Precio cerrado para el expediente, más <strong>120 € por cada familiar adicional</strong>. Tasas, traducciones juradas y legalizaciones aparte, y se le indica el importe antes de encargarlas. El plazo es el nuestro de preparación: el de resolución lo marca la Administración.</p>
         </div>
       </aside>
     </div>
@@ -2525,6 +2626,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Familia</p>
     <h1>Reagrupación familiar en Donostia-San Sebastián</h1>
     <p class="entradilla">Traer a su familia cuando usted ya reside aquí. Se decide por dos números: un año de residencia previa y los ingresos que pueda acreditar.</p>
 
@@ -2536,6 +2638,8 @@ body { padding-bottom: 4.25rem; }
     <p>Antes de mirar nada más conviene comprobar dos cosas, porque son las que descartan la mayoría de los casos. La primera: <strong>tiene que haber residido en España al menos un año</strong> y haber solicitado la autorización para residir al menos otro año. La segunda: los ingresos.</p>
     <p>Los ingresos se miden en porcentaje del IPREM. Para usted más un familiar hace falta el <strong>150 %</strong>, y un <strong>50 % adicional</strong> por cada miembro más. Hay una rebaja posible cuando se reagrupa a menores y concurren circunstancias que la aconsejen, atendiendo al interés superior del menor.</p>
     <p>Y hay una tercera pieza que suele ser el cuello de botella real: el informe de vivienda adecuada, que emiten los servicios sociales de su comunidad autónoma o de su ayuntamiento.</p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2616,7 +2720,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>495 €</strong>
+            <strong>600 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2624,7 +2728,7 @@ body { padding-bottom: 4.25rem; }
             <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
             <a class="boton" href="#contacto">Pedir que le llamemos</a>
           </div>
-          <p class="tenue">Precio cerrado para el expediente, más <strong>100 € por cada familiar adicional</strong>. Tasas, traducciones juradas y legalizaciones aparte, y se le indica el importe antes de encargarlas. El plazo es el nuestro de preparación: el de resolución lo marca la Administración.</p>
+          <p class="tenue">Precio cerrado para el expediente, más <strong>120 € por cada familiar adicional</strong>. Tasas, traducciones juradas y legalizaciones aparte, y se le indica el importe antes de encargarlas. El plazo es el nuestro de preparación: el de resolución lo marca la Administración.</p>
         </div>
       </aside>
     </div>
@@ -2642,6 +2746,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Tras una denegación</p>
     <h1>Recurso de alzada en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de recurso de alzada]</span></p>
 
@@ -2651,6 +2756,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es recurso de alzada y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de recurso de alzada conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2694,7 +2801,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>250 €</strong>
+            <strong>305 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2720,6 +2827,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Tras una denegación</p>
     <h1>Recurso de reposición en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de recurso de reposición]</span></p>
 
@@ -2729,6 +2837,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es recurso de reposición y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de recurso de reposición conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2772,7 +2882,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>250 €</strong>
+            <strong>305 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2798,6 +2908,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Renovación de autorizaciones en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de renovación de autorizaciones]</span></p>
 
@@ -2807,6 +2918,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es renovación de autorizaciones y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de renovación de autorizaciones conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2850,7 +2963,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>100 €</strong>
+            <strong>125 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2876,6 +2989,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Residencia y trabajo</p>
     <h1>Residencia de larga duración en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de residencia de larga duración]</span></p>
 
@@ -2885,6 +2999,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es residencia de larga duración y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de residencia de larga duración conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -2928,7 +3044,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>350 €</strong>
+            <strong>425 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -2954,6 +3070,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Residencia y trabajo</p>
     <h1>Residencia de larga duración-UE en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de residencia de larga duración-ue]</span></p>
 
@@ -2963,6 +3080,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es residencia de larga duración-ue y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de residencia de larga duración-ue conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -3006,7 +3125,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>395 €</strong>
+            <strong>480 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -3032,6 +3151,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Residencia y trabajo</p>
     <h1>Residencia y trabajo por cuenta ajena en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de residencia y trabajo por cuenta ajena]</span></p>
 
@@ -3041,6 +3161,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es residencia y trabajo por cuenta ajena y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de residencia y trabajo por cuenta ajena conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -3084,7 +3206,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>450 €</strong>
+            <strong>545 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -3110,6 +3232,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Residencia y trabajo</p>
     <h1>Residencia y trabajo por cuenta propia en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de residencia y trabajo por cuenta propia]</span></p>
 
@@ -3119,6 +3242,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es residencia y trabajo por cuenta propia y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de residencia y trabajo por cuenta propia conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -3162,7 +3287,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>495 €</strong>
+            <strong>600 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -3188,6 +3313,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Renovaciones y documentación</p>
     <h1>Tarjeta de identidad de extranjero (TIE) en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de tarjeta de identidad de extranjero (tie)]</span></p>
 
@@ -3197,6 +3323,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es tarjeta de identidad de extranjero (tie) y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de tarjeta de identidad de extranjero (tie) conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -3240,7 +3368,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>100 €</strong>
+            <strong>125 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 5 días hábiles desde que recibimos toda la
              documentación.</p>
@@ -3266,6 +3394,7 @@ body { padding-bottom: 4.25rem; }
      una barra fija con el precio y las llamadas a la accion. En movil vuelve a ser una
      sola columna y el precio recupera su sitio, despues de "que incluye y que no". -->
 
+    <p class="antetitulo">Familia</p>
     <h1>Tarjeta de familiar de ciudadano de la UE en Donostia-San Sebastián</h1>
     <p class="entradilla"><span class="hueco">[dato a confirmar: entradilla de tarjeta de familiar de ciudadano de la ue]</span></p>
 
@@ -3275,6 +3404,8 @@ body { padding-bottom: 4.25rem; }
         <h2>Qué es y a quién sirve</h2>
     <p><span class="hueco">[dato a confirmar: qué es tarjeta de familiar de ciudadano de la ue y a quién sirve, en lenguaje llano]</span></p>
     <p><span class="hueco">[por verificar en BOE: requisitos de tarjeta de familiar de ciudadano de la ue conforme al RD 1155/2024 y al RD 316/2026]</span></p>
+
+
 
         <h2>Requisitos</h2>
         <ul class="lista">
@@ -3318,7 +3449,7 @@ body { padding-bottom: 4.25rem; }
         <div class="ficha-precio">
           <span class="etiqueta">Precio cerrado</span>
           <div class="precio">
-            <strong>350 €</strong>
+            <strong>425 €</strong>
           </div>
           <p class="plazo-suelto">Expediente listo en 15 días hábiles desde que recibimos toda la
              documentación.</p>
