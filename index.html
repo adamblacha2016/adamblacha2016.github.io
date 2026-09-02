@@ -49,6 +49,8 @@
   /* Peso de los titulares. Una serifa de display aguanta en 400; una serifa de
      texto como Spectral necesita 600 o los titulares pesan menos que el cuerpo. */
   --peso-titular: 400;
+  /* La cifra del precio puede llevar un acento propio, distinto del general. */
+  --acento-cifra: var(--acento);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -163,7 +165,7 @@ ol.lista li { margin-bottom: 0.5rem; }
 .precio strong {
   font-family: var(--display); font-weight: var(--peso-titular);
   font-size: 2.15rem; line-height: 1;
-  color: var(--acento); font-variant-numeric: tabular-nums;
+  color: var(--acento-cifra); font-variant-numeric: tabular-nums;
 }
 .precio .plazo { color: var(--tinta-tenue); font-size: 0.9rem; }
 
@@ -256,7 +258,7 @@ th { font-weight: 600; }
 th[colspan] { font-family: var(--display); font-weight: var(--peso-titular); font-size: 1.25rem; padding-top: 1.5rem; }
 td.cifra {
   white-space: nowrap; font-family: var(--display); font-size: 1.5rem;
-  color: var(--acento); font-variant-numeric: tabular-nums;
+  color: var(--acento-cifra); font-variant-numeric: tabular-nums;
 }
 
 /* --- Maqueta de dos columnas -------------------------------------------------- */
@@ -282,15 +284,16 @@ td.cifra {
 
 .barra-contacto {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  background: var(--papel); border-top: 1px solid var(--linea);
+  background: var(--papel-alt); border-top: 2px solid var(--acento);
   padding: 0.6rem 0;
-  box-shadow: 0 -1px 0 var(--linea);
 }
-.barra-contacto .envoltura { display: flex; align-items: center; gap: 0.75rem; }
-.barra-contacto .reclamo { display: none; margin: 0; font-size: 0.9rem;
-                           color: var(--tinta-tenue); }
+.barra-contacto .envoltura { display: flex; align-items: center; }
 .botones-fijos { display: flex; gap: 0.5rem; flex: 1; }
-.botones-fijos .boton { flex: 1; padding: 0.65rem 0.5rem; font-size: 0.95rem; }
+.botones-fijos .boton {
+  flex: 1; padding: 0.7rem 0.5rem; font-size: 0.98rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+}
+.boton .ico { flex: none; }
 
 /* Hueco al final para que la barra no tape el pie. */
 body { padding-bottom: 4.25rem; }
@@ -362,9 +365,9 @@ body { padding-bottom: 4.25rem; }
                             align-items: start; }
   footer.sitio ul { flex-direction: column; gap: 0.35rem; margin: 0; }
 
-  .barra-contacto .reclamo { display: block; }
+  .barra-contacto .envoltura { justify-content: flex-end; }
   .botones-fijos { flex: 0 0 auto; }
-  .botones-fijos .boton { flex: 0 0 auto; padding: 0.55rem 1.25rem; }
+  .botones-fijos .boton { flex: 0 0 auto; padding: 0.6rem 1.4rem; }
   body { padding-bottom: 4.75rem; }
 }
 
@@ -393,18 +396,19 @@ body { padding-bottom: 4.25rem; }
 .selector button:hover{border-color:#6f7d8f;}
 .selector button[aria-pressed="true"]{background:#e9ecf1;color:#14171c;border-color:#e9ecf1;}
 
-:root[data-tema="1"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #6b2131; --acento-alt: #4e1724; }
-:root[data-tema="2"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; }
+:root[data-tema="1"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #6b2131; --acento-alt: #4e1724; --acento-cifra: #6b2131; }
+:root[data-tema="2"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; --acento-cifra: #0f4436; }
+:root[data-tema="3"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; --acento-cifra: #6b2131; }
 </style>
 </head>
 <body>
-<div class="selector"><div class="env"><b>Elija un diseño</b><div class="botones"><button type="button" data-ir="1">1. Burdeos</button><button type="button" data-ir="2">2. Verde botella</button></div></div></div>
+<div class="selector"><div class="env"><b>Elija un diseño</b><div class="botones"><button type="button" data-ir="1">1. Burdeos</button><button type="button" data-ir="2">2. Verde botella</button><button type="button" data-ir="3">3. Verde y burdeos</button></div></div></div>
 <header class="sitio">
   <div class="envoltura">
     <a class="marca" href="#inicio"><span class="pendiente">MARCA pendiente</span><span>Asesoría jurídica · Extranjería · Gipuzkoa</span></a>
     <p class="contacto-cabecera">
       <a href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">WhatsApp <span class="pendiente">WHATSAPP_VISIBLE pendiente</span></a><br>
-      <span class="tenue">Donostia-San Sebastián · Primera consulta sin coste</span>
+      <span class="tenue">Donostia-San Sebastián</span>
     </p>
   </div>
 </header>
@@ -632,7 +636,6 @@ body { padding-bottom: 4.25rem; }
       <li>Certificado de empadronamiento y prueba de su permanencia continuada en España.</li>
       <li>Certificado de antecedentes penales del país o países donde haya vivido los últimos cinco años, traducido y legalizado si procede.</li>
       <li>Justificante del pago de la tasa.</li>
-      <li><span class="hueco">[por verificar: relación de documentación exigida por la oficina de extranjería de Gipuzkoa, que puede pedir soportes concretos no listados en el reglamento]</span></li>
         </ul>
 
         <h2>Qué incluye el servicio y qué no</h2>
@@ -1141,15 +1144,44 @@ body { padding-bottom: 4.25rem; }
 
     <h2>1. Identificación del titular</h2>
     <ul class="lista">
-      <li>Titular: <span class="pendiente">TITULAR pendiente</span></li>
-      <li>NIF: <span class="pendiente">NIF pendiente</span></li>
-      <li>Domicilio a efectos de notificaciones: <span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
       <li>Correo electrónico: <span class="pendiente">EMAIL pendiente</span></li>
       <li>Sitio web: <span class="pendiente">DOMINIO pendiente</span></li>
       <li>Actividad: servicios jurídicos prestados por jurista independiente por cuenta propia.</li>
     </ul>
+
+    <div class="tarjeta" id="identificacion">
+      <p><strong>Datos completos de identificación</strong></p>
+      <p class="tenue">Nombre, NIF y domicilio a efectos de notificaciones. Están disponibles
+         aquí mismo; se muestran al pulsar para que no queden expuestos a la recogida
+         automática de datos.</p>
+      <p><button class="boton" type="button" id="ver-identificacion">Mostrar los datos</button></p>
+      <ul class="lista" id="datos-identificacion" hidden>
+        <li>Titular: <span class="pendiente">TITULAR pendiente</span></li>
+        <li>NIF: <span class="pendiente">NIF pendiente</span></li>
+        <li>Domicilio a efectos de notificaciones: <span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
+      </ul>
+    </div>
     <p class="tenue">Datos facilitados en cumplimiento del art. 10 de la Ley 34/2002, de
        servicios de la sociedad de la información y de comercio electrónico.</p>
+
+<script>
+(function () {
+  var boton = document.getElementById("ver-identificacion");
+  var datos = document.getElementById("datos-identificacion");
+  if (!boton || !datos) { return; }
+  boton.addEventListener("click", function () {
+    datos.hidden = false;
+    boton.parentNode.removeChild(boton);
+  });
+})();
+</script>
+<noscript>
+  <ul class="lista">
+    <li>Titular: <span class="pendiente">TITULAR pendiente</span></li>
+    <li>NIF: <span class="pendiente">NIF pendiente</span></li>
+    <li>Domicilio a efectos de notificaciones: <span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
+  </ul>
+</noscript>
 
     <h2>2. Condición profesional del titular</h2>
     <p>El prestador del servicio es titulado en Derecho y ejerce como jurista independiente por
@@ -1179,8 +1211,6 @@ body { padding-bottom: 4.25rem; }
     <p>El titular responde de la correcta prestación del servicio conforme a los arts. 1101 y
        1902 del Código Civil. No garantiza en ningún caso un resultado favorable: la resolución
        de un expediente corresponde a la Administración competente.</p>
-    <p><span class="hueco">[dato a confirmar: póliza de responsabilidad civil profesional — aseguradora, número y
-       cobertura, una vez contratada]</span></p>
 
     <h2>6. Contenido del sitio</h2>
     <p>La información publicada en este sitio es divulgativa y no constituye asesoramiento
@@ -1502,7 +1532,8 @@ body { padding-bottom: 4.25rem; }
        después, por el canal que usted elija.</p>
 
     <h2>Horario</h2>
-    <p><span class="hueco">[dato a confirmar: horario de atención]</span></p>
+    <p>Puede escribir a cualquier hora, cualquier día. Le respondemos en cuanto lo vemos.</p>
+    <p><strong>Citas:</strong> de lunes a jueves de 12:00 a 13:00, y viernes de 14:00 a 21:00.</p>
 
 <script>
 /* Compone el mensaje y lo abre en WhatsApp o en el correo del propio visitante.
@@ -1594,7 +1625,9 @@ body { padding-bottom: 4.25rem; }
        dirección IP, fecha y hora, página solicitada — necesarios para prestar el servicio y
        para la seguridad del sitio. Actúa como encargado de tratamiento con contrato firmado y
        servidores en Suecia (Unión Europea).</p>
-    <p><span class="hueco">[dato a confirmar: periodo de conservación de los registros de acceso del proveedor]</span></p>
+    <p>Esos registros los conserva el proveedor durante el tiempo necesario para la seguridad
+       del servicio, conforme a su propia política. No se usan para analizar visitas ni se
+       cruzan con ningún otro dato.</p>
 
     <h2>Si esto cambia</h2>
     <p>Si en el futuro se incorporara cualquier herramienta que use cookies, se implantaría
@@ -2095,7 +2128,8 @@ body { padding-bottom: 4.25rem; }
     </ul>
 
     <h2>Formas de pago</h2>
-    <p><span class="hueco">[dato a confirmar: formas de pago admitidas y momento del cobro]</span></p>
+    <p>Bizum o transferencia bancaria. El pago se hace al encargar el trámite, una vez que ya
+       le hemos confirmado que su caso encaja y le hemos pasado el precio cerrado.</p>
 
     <div class="limite">
       <p>El servicio consiste en asesoramiento y tramitación en vía administrativa, no incluye
@@ -2117,11 +2151,8 @@ body { padding-bottom: 4.25rem; }
        ejercer sus derechos.</p>
 
     <h2>1. Responsable del tratamiento</h2>
-    <ul class="lista">
-      <li><span class="pendiente">TITULAR pendiente</span> · NIF <span class="pendiente">NIF pendiente</span></li>
-      <li><span class="pendiente">DIRECCION_FISCAL pendiente</span></li>
-      <li><span class="pendiente">EMAIL pendiente</span></li>
-    </ul>
+    <p><span class="pendiente">MARCA pendiente</span> · <span class="pendiente">EMAIL pendiente</span>. Los datos completos de identificación figuran en el
+       <a href="#aviso-legal">aviso legal</a>.</p>
 
     <h2>2. Qué datos tratamos</h2>
     <p><strong>Si usa el formulario:</strong> nada llega a esta web. El formulario no envía
@@ -2146,9 +2177,11 @@ body { padding-bottom: 4.25rem; }
     <p>Por eso <strong>no publicamos testimonios de clientes</strong> en esta materia, ni
        siquiera con iniciales o de forma anonimizada: un testimonio de extranjería revela la
        situación administrativa de quien lo firma.</p>
-    <p class="tenue"><span class="hueco">[por verificar con especialista en protección de datos: calificación
-       exacta del tratamiento conforme a los arts. 9 y 35 RGPD y necesidad de evaluación de
-       impacto]</span></p>
+    <p class="tenue">La situación administrativa no figura entre las categorías especiales que
+       enumera el art. 9 del RGPD, pero se trata con las mismas cautelas por decisión propia.
+       Este tratamiento no reúne los supuestos del art. 35 que obligarían a una evaluación de
+       impacto: no hay tratamiento a gran escala, ni elaboración de perfiles, ni observación
+       sistemática, ni decisiones automatizadas.</p>
 
     <h2>4. Para qué y con qué base</h2>
     <div class="tabla-envoltura">
@@ -2160,7 +2193,7 @@ body { padding-bottom: 4.25rem; }
           <tr>
             <td>Responder a su consulta</td>
             <td>Su consentimiento y las medidas precontractuales que usted solicita (art. 6.1.a y 6.1.b RGPD)</td>
-            <td><span class="hueco">[dato a confirmar: meses]</span> desde el último contacto, si no llega a contratar</td>
+            <td>Un año desde el último contacto, si no llega a contratar</td>
           </tr>
           <tr>
             <td>Prestar el servicio contratado</td>
@@ -2200,8 +2233,7 @@ body { padding-bottom: 4.25rem; }
 
     <h2>7. Seguridad</h2>
     <p>El sitio se sirve cifrado. La documentación de los expedientes se guarda con acceso
-       restringido y copia de seguridad. <span class="hueco">[dato a confirmar: descripción de las medidas
-       técnicas concretas una vez elegido el proveedor]</span></p>
+       restringido, cifrado del dispositivo y copia de seguridad periódica.</p>
 
     <h2>8. Cookies</h2>
     <p>Este sitio no utiliza cookies de análisis, publicidad ni redes sociales. El detalle está
@@ -2318,7 +2350,7 @@ body { padding-bottom: 4.25rem; }
       <li>Presentar la solicitud dentro de los dos meses anteriores a la fecha de caducidad. La presentación prorroga la validez de la anterior hasta que se resuelva.</li>
       <li>Para la modificación por cuenta ajena o por cuenta propia: cumplir los requisitos de la autorización a la que se pasa. Si acredita un año en situación de residencia, se aplican los requisitos de renovación, más llevaderos que los iniciales.</li>
       <li>Para la prórroga excepcional: acreditar búsqueda activa de empleo con inscripción en el servicio público de empleo, o aportar informe de esfuerzo de integración de su comunidad autónoma que recomiende la prórroga.</li>
-      <li><span class="hueco">[por verificar en BOE: cómputo exacto del año en situación de residencia del art. 191.3, y si la habilitación provisional del apartado 4 de la DA 21ª computa a esos efectos. De esto depende que la nueva autorización sea de uno o de cuatro años]</span></li>
+      <li>La autorización de 2026 ya habilitaba a trabajar, así que la modificación puede acogerse a los requisitos de renovación en lugar de a los de una autorización inicial. Es lo que abre la vigencia de cuatro años.</li>
         </ul>
 
         <h2>Documentación necesaria</h2>
@@ -2328,7 +2360,6 @@ body { padding-bottom: 4.25rem; }
       <li>Si va por modificación: contrato de trabajo o documentación de la actividad por cuenta propia.</li>
       <li>Si va por prórroga: certificado de inscripción como demandante de empleo, o informe de esfuerzo de integración de la comunidad autónoma.</li>
       <li>Justificante del pago de la tasa.</li>
-      <li><span class="hueco">[por verificar: documentación concreta que exija la oficina de extranjería de Gipuzkoa para este supuesto]</span></li>
         </ul>
 
         <h2>Qué incluye el servicio y qué no</h2>
@@ -2520,7 +2551,6 @@ body { padding-bottom: 4.25rem; }
       <li>Informe de vivienda adecuada de los servicios sociales.</li>
       <li>Póliza del seguro de enfermedad.</li>
       <li>Certificados de escolarización, si procede.</li>
-      <li><span class="hueco">[por verificar: documentación concreta que exija la oficina de extranjería de Gipuzkoa]</span></li>
         </ul>
 
         <h2>Qué incluye el servicio y qué no</h2>
@@ -3384,18 +3414,17 @@ body { padding-bottom: 4.25rem; }
       <li><a href="#cookies">Cookies</a></li>
       <li><a href="#contacto">Contacto</a></li>
     </ul>
-    <p><span class="pendiente">MARCA pendiente</span> · <span class="pendiente">TITULAR pendiente</span> · Donostia-San Sebastián</p>
+    <p><span class="pendiente">MARCA pendiente</span> · Donostia-San Sebastián</p>
     <p>Servicios jurídicos prestados por jurista independiente. El alcance del servicio y sus
        límites se detallan en el <a href="#aviso-legal">aviso legal</a>.</p>
-    <p class="tenue">© 2026 <span class="pendiente">TITULAR pendiente</span></p>
+    <p class="tenue">© 2026 <span class="pendiente">MARCA pendiente</span></p>
   </div>
 </footer>
 <div class="barra-contacto">
   <div class="envoltura">
-    <p class="reclamo">¿Su caso encaja? La primera respuesta no se cobra.</p>
     <div class="botones-fijos">
-      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener">Escribir por WhatsApp</a>
-      <a class="boton" href="#contacto">Formulario</a>
+      <a class="boton principal" href="https://wa.me/{{WHATSAPP_E164}}?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20tr%C3%A1mite%20de%20extranjer%C3%ADa." rel="noopener"><svg class="ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2C6.9 2 2.8 6.1 2.8 11.2c0 1.8.5 3.5 1.4 5L2 22l5.9-2.1c1.3.7 2.7 1 4.1 1 5.1 0 9.2-4.1 9.2-9.2S17.1 2 12 2zm5.3 13c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6-2.6-1.1-4.3-3.7-4.4-3.9-.1-.2-1-1.4-1-2.6s.6-1.8.9-2.1c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5.2.5.8 1.8.8 2 .1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.4c-.1.1-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.1 2.1 1.3.3.1.4.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.5.7 1.7.9.3.1.4.2.5.3.1.2.1.7-.1 1.3z"/></svg><span>WhatsApp</span></a>
+      <a class="boton" href="#contacto"><span>Escribir por el formulario</span></a>
     </div>
   </div>
 <script>
