@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#faf8f4">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Source+Sans+3:wght@400;600&family=Spectral:wght@400;600&family=IBM+Plex+Sans:wght@400;600&family=Public+Sans:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&display=swap">
 <style>
 /* {{MARCA}} — sistema visual "Expediente"
    Paleta de documento jurídico, tipografía de display en titulares y precio.
@@ -46,6 +46,9 @@
 
   --ancho: 40rem;
   --radio: 0;
+  /* Peso de los titulares. Una serifa de display aguanta en 400; una serifa de
+     texto como Spectral necesita 600 o los titulares pesan menos que el cuerpo. */
+  --peso-titular: 400;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -71,7 +74,7 @@ header.sitio { border-bottom: 1px solid var(--linea); padding: 1rem 0; }
 header.sitio .envoltura { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
 
 .marca {
-  font-family: var(--display); font-weight: 400; font-size: 1.35rem;
+  font-family: var(--display); font-weight: var(--peso-titular); font-size: 1.35rem;
   line-height: 1.1; color: var(--tinta); text-decoration: none;
 }
 .marca span {
@@ -106,12 +109,12 @@ footer.sitio p { margin: 0.5rem 0; }
 /* --- Texto ------------------------------------------------------------------ */
 
 h1 {
-  font-family: var(--display); font-weight: 400;
+  font-family: var(--display); font-weight: var(--peso-titular);
   font-size: 2rem; line-height: 1.08; letter-spacing: 0;
   margin: 0 0 0.75rem;
 }
 h2 {
-  font-family: var(--display); font-weight: 400;
+  font-family: var(--display); font-weight: var(--peso-titular);
   font-size: 1.4rem; line-height: 1.15;
   margin: 2rem 0 0.5rem;
 }
@@ -158,7 +161,7 @@ ol.lista li { margin-bottom: 0.5rem; }
   padding: 0.75rem 0; margin: 0 0 1rem; background: none;
 }
 .precio strong {
-  font-family: var(--display); font-weight: 400;
+  font-family: var(--display); font-weight: var(--peso-titular);
   font-size: 2.15rem; line-height: 1;
   color: var(--acento); font-variant-numeric: tabular-nums;
 }
@@ -250,7 +253,7 @@ table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
 caption { text-align: left; color: var(--tinta-tenue); font-size: 0.86rem; padding-bottom: 0.5rem; }
 th, td { text-align: left; padding: 0.75rem 0.75rem 0.75rem 0; border-bottom: 1px solid var(--linea); vertical-align: top; }
 th { font-weight: 600; }
-th[colspan] { font-family: var(--display); font-weight: 400; font-size: 1.25rem; padding-top: 1.5rem; }
+th[colspan] { font-family: var(--display); font-weight: var(--peso-titular); font-size: 1.25rem; padding-top: 1.5rem; }
 td.cifra {
   white-space: nowrap; font-family: var(--display); font-size: 1.5rem;
   color: var(--acento); font-variant-numeric: tabular-nums;
@@ -390,15 +393,12 @@ body { padding-bottom: 4.25rem; }
 .selector button:hover{border-color:#6f7d8f;}
 .selector button[aria-pressed="true"]{background:#e9ecf1;color:#14171c;border-color:#e9ecf1;}
 
-:root[data-tema="1"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --acento: #6b2131; --acento-alt: #4e1724; --linea: #e3dcd0; --radio: 0; --display: "Instrument Serif", Georgia, serif; --texto: "Source Sans 3", "Segoe UI", system-ui, sans-serif; }
-:root[data-tema="2"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --acento: #6b2131; --acento-alt: #4e1724; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, serif; --texto: Spectral, Georgia, serif; }
-:root[data-tema="3"] { --papel: #ffffff; --papel-alt: #f2f4f6; --tinta: #101418; --tinta-tenue: #5a6572; --acento: #123a5e; --acento-alt: #0d2c47; --linea: #dde3e9; --radio: 2px; --display: "IBM Plex Sans", system-ui, sans-serif; --texto: "IBM Plex Sans", system-ui, sans-serif; }
-:root[data-tema="4"] { --papel: #f7f4ee; --papel-alt: #efe9dd; --tinta: #23231e; --tinta-tenue: #6a6a5c; --acento: #41563a; --acento-alt: #2f3f2a; --linea: #e0d9c9; --radio: 4px; --display: "Instrument Serif", Georgia, serif; --texto: "Source Sans 3", "Segoe UI", system-ui, sans-serif; }
-:root[data-tema="5"] { --papel: #ffffff; --papel-alt: #f4f4f4; --tinta: #000000; --tinta-tenue: #5f5f5f; --acento: #0b4fa8; --acento-alt: #08376f; --linea: #cfcfcf; --radio: 0; --display: "Public Sans", system-ui, sans-serif; --texto: "Public Sans", system-ui, sans-serif; }
+:root[data-tema="1"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #6b2131; --acento-alt: #4e1724; }
+:root[data-tema="2"] { --papel: #faf8f4; --papel-alt: #f3efe7; --tinta: #1a1815; --tinta-tenue: #5c554b; --linea: #e3dcd0; --radio: 0; --display: Spectral, Georgia, "Times New Roman", serif; --texto: Spectral, Georgia, "Times New Roman", serif; --peso-titular: 600; --acento: #0f4436; --acento-alt: #0a3128; }
 </style>
 </head>
 <body>
-<div class="selector"><div class="env"><b>Elija un diseño</b><div class="botones"><button type="button" data-ir="1">1. Expediente</button><button type="button" data-ir="2">2. Expediente puro</button><button type="button" data-ir="3">3. Registro</button><button type="button" data-ir="4">4. Mostrador</button><button type="button" data-ir="5">5. Ficha</button></div></div></div>
+<div class="selector"><div class="env"><b>Elija un diseño</b><div class="botones"><button type="button" data-ir="1">1. Burdeos</button><button type="button" data-ir="2">2. Verde botella</button></div></div></div>
 <header class="sitio">
   <div class="envoltura">
     <a class="marca" href="#inicio"><span class="pendiente">MARCA pendiente</span><span>Asesoría jurídica · Extranjería · Gipuzkoa</span></a>
